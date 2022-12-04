@@ -103,7 +103,7 @@ export default function Home() {
             </div>
 
             <div className="relative mt-10 bg-gradient-to-b from-yellow-300 rounded-full w-80 h-80 max-lg:overflow-hidden">
-              <Image src={d31} className="" />
+              <Image src={d31} className="" alt="Hero Image" />
             </div>
 
           </div>
@@ -132,7 +132,7 @@ export default function Home() {
           <div className='flex gap-6 max-lg:flex-col border-l-2 border-r-2 border-t-2 mb-10 border-dashed p-10 shadow-md'>
 
             <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
-              <Image src={design} className="mx-auto" width={100} hight={100} />
+              <Image src={design} alt="Design Image" className="mx-auto" width={100} hight={100} />
               <h3 className='text-lg font-medium pt-8 pb-2 '>Beautiful Designs</h3>
               <p className='py-2'>Creating elegant designs suited for your needs following core
                 design theory.
@@ -146,7 +146,7 @@ export default function Home() {
 
 
             <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
-              <Image src={code} className="mx-auto" width={100} hight={100} />
+              <Image src={code} alt="Code Image" className="mx-auto" width={100} hight={100} />
               <h3 className='text-lg font-medium pt-8 pb-2 '>Code your dream project</h3>
               <p className='py-2'> Do you have an idea for your next great website? Let's make it a
                 reality.
@@ -160,7 +160,7 @@ export default function Home() {
 
 
             <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
-              <Image src={consulting} className="mx-auto" width={100} hight={100} />
+              <Image src={consulting} alt="Consulting Image" className="mx-auto" width={100} hight={100} />
               <h3 className='text-lg font-medium pt-8 pb-2 '>Consulting</h3>
               <p className='py-2'> Are you interested in feedback for your current project? I can
                 give you tips and tricks to level it up.
@@ -200,9 +200,9 @@ export default function Home() {
 
           <div className="flex mb-10 shadow-md justify-center flex-row gap-10 py-10 max-lg:shadow-none max-lg:flex-col max-lg:items-center max-lg:p-20 max-lg:mx-20 max-lg:border-none border-l-2 border-r-2 border-t-2 mb-2 border-dashed">
 
-          <div class="github-card" data-github="JAYDIPSINH27/mini-store" data-width="400" data-height="356" data-theme="medium"></div>
-          <div class="github-card" data-github="JAYDIPSINH27/spider-bug-tracker" data-width="400" data-height="" data-theme="medium"></div>
-          <div class="github-card" data-github="JAYDIPSINH27/TextEdit" data-width="400" data-height="337" data-theme="medium"></div>
+          <div className="github-card" data-github="JAYDIPSINH27/mini-store" data-width="400" data-height="356" data-theme="medium"></div>
+          <div className="github-card" data-github="JAYDIPSINH27/spider-bug-tracker" data-width="400" data-height="" data-theme="medium"></div>
+          <div className="github-card" data-github="JAYDIPSINH27/TextEdit" data-width="400" data-height="337" data-theme="medium"></div>
 
             {/* <div className="basis-1/3 flex-1 ">
               <Image
@@ -277,7 +277,7 @@ export default function Home() {
 
           <div className='border-l-2 mb-10 border-r-2 border-t-2  border-dashed shadow-md p-10 rounded-xl my-10 '>
           <div className="border-4 shadow-lg p-10 rounded-xl my-10" id="retainable-rss-embed"
-            data-rss="https://medium.com/feed/retainable,https://medium.com/feed/@jaydipadhiyar27"
+            data-rss="https://medium.com/feed/@jaydipadhiyar27"
             data-maxcols="2"
             data-layout="slider"
             data-poststyle="external"
