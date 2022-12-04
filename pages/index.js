@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Script from 'next/script'
 import Image from 'next/image'
 
-import { BsFillMoonStarsFill } from 'react-icons/bs'
 import { AiFillTwitterCircle, AiFillLinkedin, AiFillGithub, AiFillMail } from 'react-icons/ai'
 import Typewriter from "typewriter-effect"
 
