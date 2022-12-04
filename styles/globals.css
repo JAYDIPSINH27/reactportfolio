@@ -24,3 +24,37 @@ a {
   src: url('../public//Burtons.otf')
 }
 
+.slider-post{
+  border: 1px dotted;
+  padding: 10%;
+}
+
+.post-title{
+  color: orange;
+  text-align: center;
+  font-family: monospace;
+  font-size:larger;
+  padding: 10%;
+}
+.author{
+  color: orange;
+  text-align: center;
+  font-family: monospace;
+  font-size:large;
+} 
+.read-more{
+  color: white;
+  
+} 
+.read-more .btn{
+    display:inline-block;
+    padding: 2%;
+    height: auto;
+    width: auto;
+    border: 1px solid #000;
+    background-color: black;
+}
+.read-more .btn:hover{
+  opacity: 80%;
+}
+
