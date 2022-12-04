@@ -33,10 +33,10 @@ export default function Home() {
         {/* <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script> */}
       </Head>
 
-      {/* <Script
+      <Script
         src="//cdn.jsdelivr.net/github-cards/latest/widget.js"
         strategy="lazyOnload"
-      /> */}
+      />
       <Script
         src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"
         strategy="lazyOnload"
@@ -47,7 +47,7 @@ export default function Home() {
       />
 
       <main className="bg-slate-50 px-10 ">
-        <section className="min-h-screen divide-yellow-200 divide-dashed">
+        <section className="min-h-screen border-b-2 border-dashed border-orange-400">
           {/* {<nav className='py-5 mb-12 flex justify-between border-b-2'> */}
 
             {/* <h1 className='text-xl font-burtons font-semibold hover:text-orange-500'><Link href="/" >Jaydipsinh Padhiyar</Link></h1> */}
@@ -59,10 +59,10 @@ export default function Home() {
             {/* </ul> */}
           {/* </nav> */}
 
-          <div className='flex p-10 max-lg:flex-col max-lg:items-center'>
+          <div className='flex p-10 max-lg:flex-col max-lg:items-center '>
             <div>
 
-              <div className="text-center p-10">
+              <div className="text-center p-10 ">
 
 
                 <h2 className="text-5xl py-2 text-orange-500 font-medium">
@@ -111,14 +111,78 @@ export default function Home() {
 
         {/* Second Page */}
 
-        <section className='min-h-screen'>
-          <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-row'>
-            <h3 className="text-3xl py-1 ">Services I offer</h3>
+        <section className='min-h-screen border-b-2 border-dashed border-orange-400 mb-10 '>
+          <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] bg-opacity-70 backdrop-blur-3xl'>
+            <h3 className="text-3xl py-1 font-medium font-mono ">Services I offer</h3>
+            <p className="text-md py-2 leading-8 ">
+              Since the beginning of my journey as a freelance designer and
+              developer, I've done remote work for
+              <span className="text-orange-500"> agencies </span>
+              consulted for <span className="text-orange-500">startups </span>
+              and collaborated with talented people to create digital products
+              for both business and consumer use.
+            </p>
+            <p className="text-md py-2 leading-8 text-gray-800">
+              I offer from a wide range of services, including brand design,
+              programming and teaching.
+            </p>
+          </div>
+
+          
+          <div className='flex gap-6 max-lg:flex-col border-l-2 border-r-2 border-t-2 mb-10 border-dashed p-10 shadow-md'>
+
+            <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
+              <Image src={design} className="mx-auto" width={100} hight={100} />
+              <h3 className='text-lg font-medium pt-8 pb-2 '>Beautiful Designs</h3>
+              <p className='py-2'>Creating elegant designs suited for your needs following core
+                design theory.
+              </p>
+              {/* <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
+              <p className='text-gray-800 py-1'>Photoshop</p>
+              <p className='text-gray-800 py-1'>Illustrator</p>
+              <p className='text-gray-800 py-1'>Figma</p> */}
+            </div>
+
+
+
+            <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
+              <Image src={code} className="mx-auto" width={100} hight={100} />
+              <h3 className='text-lg font-medium pt-8 pb-2 '>Code your dream project</h3>
+              <p className='py-2'> Do you have an idea for your next great website? Let's make it a
+                reality.
+              </p>
+              {/* <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
+              <p className='text-gray-800 py-1'>Photoshop</p>
+              <p className='text-gray-800 py-1'>Illustrator</p>
+              <p className='text-gray-800 py-1'>Figma</p> */}
+            </div>
+
+
+
+            <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
+              <Image src={consulting} className="mx-auto" width={100} hight={100} />
+              <h3 className='text-lg font-medium pt-8 pb-2 '>Consulting</h3>
+              <p className='py-2'> Are you interested in feedback for your current project? I can
+                give you tips and tricks to level it up.
+              </p>
+              {/* <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
+              <p className='text-gray-800 py-1'>Photoshop</p>
+              <p className='text-gray-800 py-1'>Illustrator</p>
+              <p className='text-gray-800 py-1'>Figma</p> */}
+            </div>
+
+          </div>
+        </section>
+
+        {/* Section 3 */}
+        <section className='min-h-screen border-b-2 border-dashed border-orange-400 '>
+          <div className='text-center shadow-lg p-10 rounded-xl my-5 flex-row bg-[#B9E0FF] bg-opacity-70 backdrop-blur-3xl'>
+            <h3 className="text-3xl py-1 font-medium font-mono">Portfolio</h3>
             <p className="text-md py-2 leading-8 text-gray-800 ">
               Since the beginning of my journey as a freelance designer and
               developer, I've done remote work for
-              <span className="text-teal-500"> agencies </span>
-              consulted for <span className="text-teal-500">startups </span>
+              <span className="text-orange-500"> agencies </span>
+              consulted for <span className="text-orange-500">startups </span>
               and collaborated with talanted people to create digital products
               for both business and consumer use.
             </p>
@@ -134,83 +198,13 @@ export default function Home() {
                 <github-card data-user="JAYDIPSINH27" data-theme="dark"></github-card>
               </div>
 
-          <div className='flex gap-6 max-lg:flex-col'>
+          <div className="flex mb-10 shadow-md justify-center flex-row gap-10 py-10 max-lg:shadow-none max-lg:flex-col max-lg:items-center max-lg:p-20 max-lg:mx-20 max-lg:border-none border-l-2 border-r-2 border-t-2 mb-2 border-dashed">
 
-            <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
-              <Image src={design} className="mx-auto" width={100} hight={100} />
-              <h3 className='text-lg font-medium pt-8 pb-2 '>Beautiful Designs</h3>
-              <p className='py-2'>Creating elegant designs suited for your needs following core
-                design theory.
-              </p>
-              <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
-              <p className='text-gray-800 py-1'>Photoshop</p>
-              <p className='text-gray-800 py-1'>Illustrator</p>
-              <p className='text-gray-800 py-1'>Figma</p>
-            </div>
+          <div class="github-card" data-github="JAYDIPSINH27/mini-store" data-width="400" data-height="356" data-theme="medium"></div>
+          <div class="github-card" data-github="JAYDIPSINH27/spider-bug-tracker" data-width="400" data-height="" data-theme="medium"></div>
+          <div class="github-card" data-github="JAYDIPSINH27/TextEdit" data-width="400" data-height="337" data-theme="medium"></div>
 
-
-
-            <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
-              <Image src={code} className="mx-auto" width={100} hight={100} />
-              <h3 className='text-lg font-medium pt-8 pb-2 '>Code your dream project</h3>
-              <p className='py-2'> Do you have an idea for your next great website? Let's make it a
-                reality.
-              </p>
-              <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
-              <p className='text-gray-800 py-1'>Photoshop</p>
-              <p className='text-gray-800 py-1'>Illustrator</p>
-              <p className='text-gray-800 py-1'>Figma</p>
-            </div>
-
-
-
-            <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
-              <Image src={consulting} className="mx-auto" width={100} hight={100} />
-              <h3 className='text-lg font-medium pt-8 pb-2 '>Consulting</h3>
-              <p className='py-2'> Are you interested in feedback for your current project? I can
-                give you tips and tricks to level it up.
-              </p>
-              <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
-              <p className='text-gray-800 py-1'>Photoshop</p>
-              <p className='text-gray-800 py-1'>Illustrator</p>
-              <p className='text-gray-800 py-1'>Figma</p>
-            </div>
-
-          </div>
-        </section>
-
-        {/* Section 3 */}
-        <section className='min-h-screen'>
-          <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-row'>
-            <h3 className="text-3xl py-1 ">Portfolio</h3>
-            <p className="text-md py-2 leading-8 text-gray-800 ">
-              Since the beginning of my journey as a freelance designer and
-              developer, I've done remote work for
-              <span className="text-teal-500"> agencies </span>
-              consulted for <span className="text-teal-500">startups </span>
-              and collaborated with talanted people to create digital products
-              for both business and consumer use.
-            </p>
-            <p className="text-md py-2 leading-8 text-gray-800">
-              I offer from a wide range of services, including brand design,
-              programming and teaching.
-            </p>
-          </div>
-
-          <div className='shadow-lg p-10 rounded-xl my-10'>
-          <div className="border-4 shadow-lg p-10 rounded-xl my-10" id="retainable-rss-embed"
-            data-rss="https://medium.com/feed/retainable,https://medium.com/feed/@jaydipadhiyar27"
-            data-maxcols="2"
-            data-layout="slider"
-            data-poststyle="external"
-            // data-readmore="Read the rest"
-            data-buttonclass="btn btn-dark"
-            data-offset="-100">
-            </div>
-            </div>
-
-          <div className="flex flex-col gap-10 py-10 lg:flex-row lg:flex-wrap">
-            <div className="basis-1/3 flex-1 ">
+            {/* <div className="basis-1/3 flex-1 ">
               <Image
                 className="rounded-lg object-cover"
                 width={"100%"}
@@ -263,8 +257,35 @@ export default function Home() {
                 layout="responsive"
                 src={web6}
               />
-            </div>
+            </div> */}
           </div>
+
+        </section>
+
+        {/* Section 4 */}
+        <section className='min-h-screen border-b-2 border-dashed border-orange-400 '>
+          <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] bg-opacity-70 backdrop-blur-3xl'>
+            <h3 className="text-3xl py-1 font-medium font-mono">Blog</h3>
+            <p className="text-md py-2 leading-8 text-gray-800 ">
+              I frequently post new articles to <span className="text-orange-500">Medium</span>. Please <span className="text-orange-500">follow me </span> to receive new, up-to-date technology-related blogs and information.
+            </p>
+            <p className="text-md py-2 leading-8 text-gray-800">
+              I offer from a wide range of services, including brand design,
+              programming and teaching.
+            </p>
+          </div>
+
+          <div className='border-l-2 mb-10 border-r-2 border-t-2  border-dashed shadow-md p-10 rounded-xl my-10 '>
+          <div className="border-4 shadow-lg p-10 rounded-xl my-10" id="retainable-rss-embed"
+            data-rss="https://medium.com/feed/retainable,https://medium.com/feed/@jaydipadhiyar27"
+            data-maxcols="2"
+            data-layout="slider"
+            data-poststyle="external"
+            // data-readmore="Read the rest"
+            data-buttonclass="btn btn-dark"
+            data-offset="-100">
+            </div>
+            </div>
 
         </section>
       </main>

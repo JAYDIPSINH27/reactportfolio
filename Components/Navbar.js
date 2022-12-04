@@ -5,8 +5,8 @@ import { BsFillMoonStarsFill } from 'react-icons/bs'
 const Navbar = () => {
   return (
     
-    <nav className="py-5 px-10 shadow-sm  flex justify-between border-b-2">
-      <h1 className="text-xl font-burtons font-semibold hover:text-orange-500">
+    <nav className="py-5 px-10 shadow-sm  flex justify-between border-b-2 bg-opacity-50">
+      <h1 className="text-xl text-neutral-900 font-burtons font-semibold hover:text-orange-500">
         <Link href="/">Jaydipsinh Padhiyar</Link>
       </h1>
       <ul className=" flex items-center">
