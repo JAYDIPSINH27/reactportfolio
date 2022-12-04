@@ -11,12 +11,6 @@ import d31 from '../public/3d1.png'
 import design from '../public/design.png'
 import code from '../public/code.png'
 import consulting from '../public/consulting.png'
-import web1 from '../public/web1.png'
-import web2 from '../public/web2.png'
-import web3 from '../public/web3.png'
-import web4 from '../public/web4.png'
-import web5 from '../public/web5.png'
-import web6 from '../public/web6.png'
 import { useState } from 'react'
 
 export default function Home() {
@@ -48,16 +42,6 @@ export default function Home() {
 
       <main className="bg-slate-50 px-10 ">
         <section className="min-h-screen border-b-2 border-dashed border-orange-400">
-          {/* {<nav className='py-5 mb-12 flex justify-between border-b-2'> */}
-
-            {/* <h1 className='text-xl font-burtons font-semibold hover:text-orange-500'><Link href="/" >Jaydipsinh Padhiyar</Link></h1> */}
-            {/* <ul className=" flex items-center"> */}
-              {/* <li><BsFillMoonStarsFill onClick={() => setDarkMode(!darkMode)} className=" cursor-pointer text-2xl" /></li> */}
-              {/* Without Gradient */}
-              {/* <li><a className="bg-cyan-500 text-white px-4 py-2  rounded-md ml-8" href="#">Resume</a></li> */}
-              {/* <li><a href="https://drive.google.com/file/d/1LsjXNVjN0uTOUAyn7cClrRr4LjIkBbOG/view?usp=share_link" className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2  rounded-md ml-8">Resume</a></li> */}
-            {/* </ul> */}
-          {/* </nav> */}
 
           <div className='flex p-10 max-lg:flex-col max-lg:items-center '>
             <div>
@@ -137,10 +121,7 @@ export default function Home() {
               <p className='py-2'>Creating elegant designs suited for your needs following core
                 design theory.
               </p>
-              {/* <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
-              <p className='text-gray-800 py-1'>Photoshop</p>
-              <p className='text-gray-800 py-1'>Illustrator</p>
-              <p className='text-gray-800 py-1'>Figma</p> */}
+              
             </div>
 
 
@@ -151,10 +132,7 @@ export default function Home() {
               <p className='py-2'> Do you have an idea for your next great website? Let's make it a
                 reality.
               </p>
-              {/* <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
-              <p className='text-gray-800 py-1'>Photoshop</p>
-              <p className='text-gray-800 py-1'>Illustrator</p>
-              <p className='text-gray-800 py-1'>Figma</p> */}
+              
             </div>
 
 
@@ -165,10 +143,7 @@ export default function Home() {
               <p className='py-2'> Are you interested in feedback for your current project? I can
                 give you tips and tricks to level it up.
               </p>
-              {/* <h4 className='py-4 text-teal-600'>Design Tools I use</h4>
-              <p className='text-gray-800 py-1'>Photoshop</p>
-              <p className='text-gray-800 py-1'>Illustrator</p>
-              <p className='text-gray-800 py-1'>Figma</p> */}
+              
             </div>
 
           </div>
@@ -204,60 +179,6 @@ export default function Home() {
           <div className="github-card" data-github="JAYDIPSINH27/spider-bug-tracker" data-width="400" data-height="" data-theme="medium"></div>
           <div className="github-card" data-github="JAYDIPSINH27/TextEdit" data-width="400" data-height="337" data-theme="medium"></div>
 
-            {/* <div className="basis-1/3 flex-1 ">
-              <Image
-                className="rounded-lg object-cover"
-                width={"100%"}
-                height={"100%"}
-                layout="responsive"
-                src={web1}
-              />
-            </div>
-            <div className="basis-1/3 flex-1">
-              <Image
-                className="rounded-lg object-cover"
-                width={"100%"}
-                height={"100%"}
-                layout="responsive"
-                src={web2}
-              />
-            </div>
-            <div className="basis-1/3 flex-1">
-              <Image
-                className="rounded-lg object-cover"
-                width={"100%"}
-                height={"100%"}
-                layout="responsive"
-                src={web3}
-              />
-            </div>
-            <div className="basis-1/3 flex-1">
-              <Image
-                className="rounded-lg object-cover"
-                width={"100%"}
-                height={"100%"}
-                layout="responsive"
-                src={web4}
-              />
-            </div>
-            <div className="basis-1/3 flex-1">
-              <Image
-                className="rounded-lg object-cover"
-                width={"100%"}
-                height={"100%"}
-                layout="responsive"
-                src={web5}
-              />
-            </div>
-            <div className="basis-1/3 flex-1">
-              <Image
-                className="rounded-lg object-cover"
-                width={"100%"}
-                height={"100%"}
-                layout="responsive"
-                src={web6}
-              />
-            </div> */}
           </div>
 
         </section>
