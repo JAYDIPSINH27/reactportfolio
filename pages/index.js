@@ -74,7 +74,7 @@ export default function Home() {
                 <span className='text-3xl'>&#128187;</span>
                 <span className='text-3xl'>&#128526;</span>
                 <h3 className="text-2xl py-2">Full-Stack Developer, Tech Enthusiast, Programmer, and Self-Learner.</h3>
-                <p className="text-md py-5 leading-8 text-gray-800"> Freelancer providing services for programming and design content needs. Join me down below and let's get cracking!</p>
+                <p className="text-md py-5 leading-8 text-gray-800"> Freelancer providing services for programming and design content needs. Join me down below and let&apos;s get cracking!</p>
               </div>
 
               <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600">
@@ -100,7 +100,7 @@ export default function Home() {
             <h3 className="text-3xl py-1 font-medium font-mono ">Services I offer</h3>
             <p className="text-md py-2 leading-8 ">
               Since the beginning of my journey as a freelance designer and
-              developer, I've done remote work for
+              developer, I&apos;ve done remote work for
               <span className="text-orange-500"> agencies </span>
               consulted for <span className="text-orange-500">startups </span>
               and collaborated with talented people to create digital products
@@ -129,7 +129,7 @@ export default function Home() {
             <div className='text-center shadow-lg p-10 rounded-xl my-10 flex-1'>
               <Image src={code} alt="Code Image" className="mx-auto" width={100} hight={100} />
               <h3 className='text-lg font-medium pt-8 pb-2 '>Code your dream project</h3>
-              <p className='py-2'> Do you have an idea for your next great website? Let's make it a
+              <p className='py-2'> Do you have an idea for your next great website? Let&apos;s make it a
                 reality.
               </p>
               
@@ -155,7 +155,7 @@ export default function Home() {
             <h3 className="text-3xl py-1 font-medium font-mono">Portfolio</h3>
             <p className="text-md py-2 leading-8 text-gray-800 ">
               Since the beginning of my journey as a freelance designer and
-              developer, I've done remote work for
+              developer, I&apos;ve done remote work for
               <span className="text-orange-500"> agencies </span>
               consulted for <span className="text-orange-500">startups </span>
               and collaborated with talanted people to create digital products
