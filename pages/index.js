@@ -154,16 +154,12 @@ export default function Home() {
           <div className='text-center shadow-lg p-10 rounded-xl my-5 flex-row bg-[#B9E0FF] bg-opacity-70 backdrop-blur-3xl'>
             <h3 className="text-3xl py-1 font-medium font-mono">Portfolio</h3>
             <p className="text-md py-2 leading-8 text-gray-800 ">
-              Since the beginning of my journey as a freelance designer and
-              developer, I&apos;ve done remote work for
-              <span className="text-orange-500"> agencies </span>
-              consulted for <span className="text-orange-500">startups </span>
-              and collaborated with talanted people to create digital products
-              for both business and consumer use.
+              Here are a few of the projects I&apos;ve worked on. Please see my <span className="text-orange-500">Github</span> repositories.
+              If you wish to add additional features, you can get in touch with me and fork my repository.
+
             </p>
             <p className="text-md py-2 leading-8 text-gray-800">
-              I offer from a wide range of services, including brand design,
-              programming and teaching.
+              I do Open Source Contributions on Github.
             </p>
           </div>
 
@@ -191,8 +187,7 @@ export default function Home() {
               I frequently post new articles to <span className="text-orange-500">Medium</span>. Please <span className="text-orange-500">follow me </span> to receive new, up-to-date technology-related blogs and information.
             </p>
             <p className="text-md py-2 leading-8 text-gray-800">
-              I offer from a wide range of services, including brand design,
-              programming and teaching.
+              I Give insights on wider range of topics from Latest Technologies to New frameworks and Beginner Tutorials.
             </p>
           </div>
 
