@@ -173,9 +173,9 @@ export default function Home() {
 
           <div className="flex mb-10 shadow-md justify-center flex-row gap-10 py-10 max-lg:shadow-none max-lg:flex-col max-lg:items-center max-lg:p-20 max-lg:mx-20 max-lg:border-none border-l-2 border-r-2 border-t-2 border-dashed">
 
-            <div className="github-card" data-github="JAYDIPSINH27/DalVacationHome" data-width="400" data-height="356" data-theme="medium"></div>
-            <div className="github-card" data-github="JAYDIPSINH27/FurrEverHome" data-width="400" data-height="" data-theme="medium"></div>
-            <div className="github-card" data-github="JAYDIPSINH27/BISAG-N/Road-Surface-Quality-Investigation" data-width="400" data-height="337" data-theme="medium"></div>
+            <div className="github-card" data-github="JAYDIPSINH27/FurrEverHome" data-width="400" data-height="356" data-theme="medium"></div>
+            <div className="github-card" data-github="JAYDIPSINH27/spider-bug-tracker" data-width="400" data-height="" data-theme="medium"></div>
+            <div className="github-card" data-github="JAYDIPSINH27/TextEdit" data-width="400" data-height="337" data-theme="medium"></div>
 
           </div>
 
