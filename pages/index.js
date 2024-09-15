@@ -15,6 +15,7 @@ import experienceData from "../Data/experienceData.json";
 import projectsData from "../Data/projectsData.json";
 import recommendations from "../Data/recommendationData.json";
 import skillsData from "../Data/skillsData.json";
+import CustomCursor from "../Components/CustomCursor";
 
 export default function Home() {
   const [index, setIndex] = useState(0);
@@ -42,6 +43,7 @@ export default function Home() {
 
   return (
     <div>
+      <CustomCursor/>
       <Head>
         <title>Jaydipsinh Padhiyar</title>
         <meta
@@ -65,24 +67,24 @@ export default function Home() {
         strategy="lazyOnload"
       />
 
-      <main className="bg-slate-50 px-10 dark:bg-slate-800">
+      <main className="bg-slate-50 px-4 md:px-10 dark:bg-slate-800">
         {/* Hero Section */}
         <section className="min-h-screen border-b-2 border-dashed border-orange-400">
           <motion.div
             initial="hidden"
             whileInView="visible"
             variants={sectionVariants}
-            className="flex p-10 max-lg:flex-col max-lg:items-center "
+            className="flex flex-col md:flex-row p-6 md:p-10 items-center"
           >
             {/* Left Side - Text */}
-            <div className="flex-1">
-              <div className="text-center p-10">
-                <h2 className="text-5xl py-2 text-orange-500 font-medium">
+            <div className="flex-1 text-center md:text-left">
+              <div className="p-6">
+                <h2 className="text-4xl md:text-5xl py-2 text-orange-500 font-medium">
                   <Typewriter
                     options={{ autoStart: true, loop: true }}
                     onInit={(typewriter) => {
                       typewriter
-                        .typeString("Namaste!")
+                        .typeString("Hi There!")
                         .pauseFor(1000)
                         .deleteAll()
                         .typeString("I am Jaydipsinh Padhiyar.")
@@ -90,20 +92,21 @@ export default function Home() {
                     }}
                   />
                 </h2>
-                <span className="text-3xl">&#128591;</span>
-                <span className="text-3xl">&#128187;</span>
-                <span className="text-3xl">&#128526;</span>
+                <div className="text-3xl flex justify-center md:justify-start space-x-4 py-2">
+                  <span>🙏</span>
+                  <span>💻</span>
+                  <span>😎</span>
+                </div>
                 <h3 className="text-2xl py-2 dark:text-slate-50">
                   Full-Stack Developer, Tech Enthusiast, Programmer, and
                   Self-Learner.
                 </h3>
                 <p className="text-md py-5 leading-8 text-gray-800 dark:text-slate-100">
-                Passionate Full-Stack Developer and Tech Enthusiast pursuing a Master of Applied Computer Science at Dalhousie University, specializing in cloud and DevOps technologies. Equipped with a B.Tech in Computer Engineering from CHARUSAT University and a strong foundation in data structures, algorithms, AI, and web technologies.
-Skills and Expertise
+                  Passionate Full-Stack Developer and Tech Enthusiast pursuing a Master of Applied Computer Science at Dalhousie University, specializing in cloud and DevOps technologies.
                 </p>
               </div>
 
-              <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600 dark:text-gray-300">
+              <div className="text-5xl flex justify-center md:justify-start gap-16 py-3 text-gray-600 dark:text-gray-300">
                 <a href="https://twitter.com/jpsinh27">
                   <AiFillTwitterCircle className="hover:text-black" />
                 </a>
@@ -116,12 +119,13 @@ Skills and Expertise
               </div>
             </div>
 
+
             {/* Right Side - Image */}
-            <div className="flex-1 flex justify-center items-center p-10">
+            <div className="flex-1 flex justify-center items-center p-6 md:p-10">
               <motion.img
                 src="/Logo.png"
                 alt="Jaydipsinh Padhiyar"
-                className="rounded-full shadow-lg w-80 h-90 object-cover border-4 border-orange-500"
+                className="rounded-full shadow-lg w-80 h-90 md:w-80 md:h-90 object-cover border-4 border-orange-500"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, ease: "easeInOut" }}
@@ -137,19 +141,19 @@ Skills and Expertise
           variants={sectionVariants}
           className="min-h-screen border-b-2 border-dashed border-orange-400 mb-10"
         >
-          <div className="text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
+          <div className="text-center shadow-lg p-6 md:p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
             <h3 className="text-3xl py-1 font-medium font-mono">🛠️ Skills</h3>
             <p className="text-md py-2 leading-8 text-gray-800 font-medium">
               Here are a few of the skills I bring to the table.
             </p>
           </div>
 
-          <div className="flex gap-6 max-lg:flex-col border-l-2 border-r-2 border-t-2 mb-10 border-dashed p-10 shadow-md dark:text-slate-50">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 border-l-2 border-r-2 border-t-2 mb-10 border-dashed p-6 md:p-10 shadow-md dark:text-slate-50">
             {skillsData.skills.map((skill, idx) => (
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
-                className="text-center shadow-lg p-10 rounded-xl my-10 flex-1 dark:shadow-slate-300 dark:shadow-sm"
+                className="text-center shadow-lg p-6 md:p-10 rounded-xl my-6 dark:shadow-slate-300 dark:shadow-sm"
               >
                 <h3 className="text-lg font-medium pt-8 pb-2 ">
                   {skill.category}
@@ -167,7 +171,7 @@ Skills and Expertise
           variants={sectionVariants}
           className="min-h-screen border-b-2 border-dashed border-orange-400"
         >
-          <div className="text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
+          <div className="text-center shadow-lg p-6 md:p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
             <h3 className="text-3xl py-1 font-medium font-mono">
               🎓 Education
             </h3>
@@ -175,7 +179,7 @@ Skills and Expertise
               Here is my education background:
             </p>
 
-            <div className="text-left mt-6 ml-10">
+            <div className="text-left mt-6 ml-4">
               {educationData.map((edu, idx) => (
                 <div key={idx} className="mb-6">
                   <p className="text-lg">
@@ -198,6 +202,7 @@ Skills and Expertise
             </div>
           </div>
         </motion.section>
+
         {/* Experience Section */}
         <motion.section
           initial="hidden"
@@ -205,7 +210,7 @@ Skills and Expertise
           variants={sectionVariants}
           className="min-h-screen border-b-2 border-dashed border-orange-400"
         >
-          <div className="text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
+          <div className="text-center shadow-lg p-6 md:p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
             <h3 className="text-3xl py-1 font-medium font-mono">
               💼 Experience
             </h3>
@@ -213,7 +218,7 @@ Skills and Expertise
               Here's my work experience:
             </p>
 
-            <div className="text-left mt-6 ml-10">
+            <div className="text-left mt-6 ml-4">
               {experienceData.map((exp, idx) => (
                 <div key={idx} className="mb-6">
                   <p className="text-lg">
@@ -250,13 +255,13 @@ Skills and Expertise
           variants={sectionVariants}
           className="min-h-screen border-b-2 border-dashed border-orange-400"
         >
-          <div className="text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
+          <div className="text-center shadow-lg p-6 md:p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
             <h3 className="text-3xl py-1 font-medium font-mono">💻 Projects</h3>
             <p className="text-md py-2 leading-8 text-gray-800 font-medium">
               Here are some of the projects I've worked on:
             </p>
 
-            <div className="text-left mt-6 ml-10">
+            <div className="text-left mt-6 ml-4">
               {projectsData.map((proj, idx) => (
                 <div key={idx} className="mb-6">
                   <p className="text-lg">
@@ -285,56 +290,55 @@ Skills and Expertise
           </div>
         </motion.section>
 
-{/* What Others Say About Me Section */}
-<motion.section
-  initial="hidden"
-  whileInView="visible"
-  variants={sectionVariants}
-  className="min-h-screen border-b-2 border-dashed border-orange-400"
->
-  <div className="text-center shadow-lg p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
-    <h3 className="text-3xl py-1 font-medium font-mono text-gray-900 dark:text-white">
-      💬 What Others Say About Me
-    </h3>
-    <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-100 font-medium">
-      Here's what people are saying:
-    </p>
+        {/* What Others Say About Me Section */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          variants={sectionVariants}
+          className="min-h-screen border-b-2 border-dashed border-orange-400"
+        >
+          <div className="text-center shadow-lg p-6 md:p-10 rounded-xl my-10 flex-row bg-[#B9E0FF] dark:bg-[#21E6C1] bg-opacity-70 backdrop-blur-3xl dark:shadow-slate-300 dark:shadow-sm">
+            <h3 className="text-3xl py-1 font-medium font-mono text-gray-900 dark:text-white">
+              💬 What Others Say About Me
+            </h3>
+            <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-100 font-medium">
+              Here's what people are saying:
+            </p>
 
-    {/* Framer Motion Card Swiper */}
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
-      transition={{ duration: 0.8 }}
-      className="text-center bg-white dark:bg-gray-800 p-6 shadow-md rounded-lg mt-6 max-w-xl mx-auto"
-    >
-      <blockquote className="text-lg font-medium text-gray-700 dark:text-gray-200 italic">
-        "{recommendations[index].text}"
-      </blockquote>
-      <p className="text-md font-semibold text-gray-600 dark:text-gray-400 mt-4">
-        - {recommendations[index].name}, {recommendations[index].title}
-      </p>
-    </motion.div>
+            {/* Framer Motion Card Swiper */}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.8 }}
+              className="text-center bg-white dark:bg-gray-800 p-6 shadow-md rounded-lg mt-6 max-w-xl mx-auto"
+            >
+              <blockquote className="text-lg font-medium text-gray-700 dark:text-gray-200 italic">
+                "{recommendations[index].text}"
+              </blockquote>
+              <p className="text-md font-semibold text-gray-600 dark:text-gray-400 mt-4">
+                - {recommendations[index].name}, {recommendations[index].title}
+              </p>
+            </motion.div>
 
-    {/* Navigation Buttons */}
-    <div className="flex justify-center mt-4 gap-4">
-      <button
-        onClick={prevRecommendation}
-        className="bg-orange-500 text-white font-medium px-4 py-2 rounded-full shadow-md hover:bg-orange-600 transition duration-200"
-      >
-        ⬅️ Previous
-      </button>
-      <button
-        onClick={nextRecommendation}
-        className="bg-orange-500 text-white font-medium px-4 py-2 rounded-full shadow-md hover:bg-orange-600 transition duration-200"
-      >
-        Next ➡️
-      </button>
-    </div>
-  </div>
-</motion.section>
-
+            {/* Navigation Buttons */}
+            <div className="flex justify-center mt-4 gap-4">
+              <button
+                onClick={prevRecommendation}
+                className="bg-orange-500 text-white font-medium px-4 py-2 rounded-full shadow-md hover:bg-orange-600 transition duration-200"
+              >
+                ⬅️ Previous
+              </button>
+              <button
+                onClick={nextRecommendation}
+                className="bg-orange-500 text-white font-medium px-4 py-2 rounded-full shadow-md hover:bg-orange-600 transition duration-200"
+              >
+                Next ➡️
+              </button>
+            </div>
+          </div>
+        </motion.section>
       </main>
     </div>
   );

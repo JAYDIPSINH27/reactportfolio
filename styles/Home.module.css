@@ -1,3 +1,7 @@
+a:hover {
+  cursor: none; /* Hide the default cursor */
+}
+
 .container {
   padding: 0 2rem;
 }
