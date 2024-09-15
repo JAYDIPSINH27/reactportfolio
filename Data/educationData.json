@@ -1,0 +1,36 @@
+[
+    {
+      "institution": "Dalhousie University 🎓",
+      "degree": "Master of Applied Computer Science",
+      "year": "2024 - 2025",
+      "gpa": "4.03/4.3",
+      "courses": [
+        "Advanced Software Development Concepts (CSCI 5308)",
+        "Data Management, Warehousing, and Analytics (CSCI 5408)",
+        "Communicating Comp Sci Ideas (CSCI 5100)",
+        "Advanced Topic in Cloud Computing (CSCI 5309)",
+        "Serverless Data Processing (CSCI 5410)",
+        "Advanced Topics in Web Development (CSCI 5709)"
+      ]
+    },
+    {
+      "institution": "Charotar University of Science And Technology 🎓",
+      "degree": "Bachelor of Technology in Computer Engineering",
+      "year": "2019 - 2023",
+      "gpa": "9.82/10",
+      "courses": [
+        "Data Structures",
+        "Analysis of Algorithms",
+        "Computer Networking",
+        "Artificial Intelligence",
+        "Information Security",
+        "Databases",
+        "Operating Systems",
+        "Advanced Web Technology",
+        "Blockchain Technologies",
+        "Digital Image Processing",
+        "Design of Language Processor"
+      ]
+    }
+  ]
+  

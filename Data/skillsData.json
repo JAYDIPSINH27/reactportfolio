@@ -1,0 +1,25 @@
+{
+    "skills": [
+      {
+        "category": "Cloud & DevOps ☁️",
+        "details": "AWS, Azure, GCP, Kubernetes, Docker, Terraform, CI/CD, Bash, Jenkins"
+      },
+      {
+        "category": "Programming & Databases 💻",
+        "details": "C, C++, JavaScript, TypeScript, Java, Python, SQL, NoSQL, MongoDB, MySQL"
+      },
+      {
+        "category": "Development Tools 🛠️",
+        "details": "HTML, CSS, TailwindCSS, Node.js, Express.js, React.js, REST, Django, Next.js"
+      },
+      {
+        "category": "Data & AI 🧠",
+        "details": "Hadoop, Spark, TensorFlow, Deep Learning, GenerativeAI, LLM, GIS (ArcGIS, QGIS)"
+      },
+      {
+        "category": "Other Tools 🛠️",
+        "details": "VSCode, IntelliJ, Git, GitHub, GitLab, Jira, Figma, PowerBI, Linux, MS Office"
+      }
+    ]
+  }
+  

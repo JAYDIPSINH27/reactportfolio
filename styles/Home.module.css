@@ -128,4 +128,33 @@
   }
 }
 
+.roadmap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.roadmap-item {
+  border-left: 4px solid #ff8c00;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.roadmap-item:before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  background-color: #ff8c00;
+  border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+  .roadmap-container {
+    flex-direction: column;
+  }
+}
 

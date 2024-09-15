@@ -17,7 +17,7 @@ const Navbar = ({darkMode,setDarkMode}) => {
         {/* <li><a className="bg-cyan-500 text-white px-4 py-2  rounded-md ml-8" href="#">Resume</a></li> */}
         <li>
           <a
-            href="https://drive.google.com/file/d/1MBbhzMQ0Gvw3W9Bagf4rS5_BeGQWOBHD/view?usp=sharing"
+            href="https://drive.google.com/file/d/1Qnkz8tM8R5gZ7tKlJO0h-Y0x2q1nns1x/view?usp=sharing"
             className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2  rounded-md ml-8 hover:from-pink-500 hover:to-yellow-500"
           >
             Resume

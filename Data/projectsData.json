@@ -1,0 +1,34 @@
+[
+    {
+      "title": "DalVacationHome 🏠",
+      "stack": "ReactJS, NodeJS, AWS, GCP",
+      "details": [
+        "Architected and deployed a multi-cloud booking app on AWS and Google Cloud, ensuring scalability and 99.9% uptime.",
+        "Designed an Amazon Lex Chatbot and AWS Lambda-based booking logic for user interaction and support.",
+        "Automated deployment via GitLab CI/CD, and implemented Infrastructure As Code using CloudFormation.",
+        "Implemented booking and authentication notifications with AWS SNS and SQS, ensuring real-time updates and security."
+      ],
+      "githubLink": "https://github.com/JAYDIPSINH27/DalVacationHome"
+    },
+    {
+      "title": "FurrEverHome 🐾",
+      "stack": "SpringBoot, ReactJS",
+      "details": [
+        "Created a CI/CD pipeline with Docker and GitLab runners, reducing build and deployment times by 60% through caching.",
+        "Applied Test Driven Development (TDD) using JUnit, achieving 80% code coverage and reducing bugs by 50%.",
+        "Followed Agile Methodologies completing user stories, client meetings, on-time delivery, and increasing client satisfaction."
+      ],
+      "githubLink": "https://github.com/JAYDIPSINH27/FurrEverHome"
+    },
+    {
+      "title": "InstituteManagementPortal 🏫",
+      "stack": "Azure, MongoDB, ReactJS, NodeJS, ExpressJS",
+      "details": [
+        "Completed project under the TCS-Microsoft SIRIUS initiative, focused on MS Azure and Power Platform training.",
+        "Deployed the portal using Azure App Services, ensuring scalability and availability.",
+        "Integrated Azure Cosmos DB for student and faculty data management, improving data handling for large records."
+      ],
+      "githubLink": "https://github.com/Infikey-Technologies-Internship/InstituteManagementPortal"
+    }
+  ]
+  
