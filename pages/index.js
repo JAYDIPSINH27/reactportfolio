@@ -8,14 +8,13 @@ import {
 import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Logo from "../public/Logo.png";
 
 // Import JSON Data
-import educationData from "../data/educationData.json";
-import experienceData from "../data/experienceData.json";
-import projectsData from "../data/projectsData.json";
-import recommendations from "../data/recommendationData.json";
-import skillsData from "../data/skillsData.json";
+import educationData from "../Data/educationData.json";
+import experienceData from "../Data/experienceData.json";
+import projectsData from "../Data/projectsData.json";
+import recommendations from "../Data/recommendationData.json";
+import skillsData from "../Data/skillsData.json";
 
 export default function Home() {
   const [index, setIndex] = useState(0);
