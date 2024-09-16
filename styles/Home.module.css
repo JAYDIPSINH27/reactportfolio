@@ -1,6 +1,9 @@
 a:hover {
   cursor: none; /* Hide the default cursor */
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .container {
   padding: 0 2rem;
