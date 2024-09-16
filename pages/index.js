@@ -16,6 +16,7 @@ import projectsData from "../Data/projectsData.json";
 import recommendations from "../Data/recommendationData.json";
 import skillsData from "../Data/skillsData.json";
 import CustomCursor from "../Components/CustomCursor";
+import BackToTopButton from "../Components/BackToTopButton";
 
 export default function Home() {
   const [index, setIndex] = useState(0);
@@ -289,6 +290,7 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
+        
 
         {/* What Others Say About Me Section */}
         <motion.section
@@ -339,6 +341,7 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
+        <BackToTopButton />
       </main>
     </div>
   );
