@@ -21,14 +21,16 @@
       "githubLink": "https://github.com/JAYDIPSINH27/FurrEverHome"
     },
     {
-      "title": "InstituteManagementPortal 🏫",
-      "stack": "Azure, MongoDB, ReactJS, NodeJS, ExpressJS",
+      "title": "BidSphere 📑",
+      "stack": "MongoDB, AWS, ReactJS, NodeJS, ExpressJS, SpringBoot, Microservices, Stripe",
       "details": [
-        "Completed project under the TCS-Microsoft SIRIUS initiative, focused on MS Azure and Power Platform training.",
-        "Deployed the portal using Azure App Services, ensuring scalability and availability.",
-        "Integrated Azure Cosmos DB for student and faculty data management, improving data handling for large records."
+        "Architected a scalable microservices backend with Node.js and Spring Boot, enhancing performance and team collaboration.",
+        "Developed a document and tender management module using Spring Boot and AWS S3 for storing 5 document types.",
+        "Integrated Stripe payment gateway and APIs into Node.js microservices for scalable and secure transaction processing.",
+        "Developed landing page with Framer Motion's AnimatePresence, optimizing DOM manipulation for faster load times.",
+        "Applied Atomic Design in ReactJS to build over 20 reusable UI components, reducing development time for new features."
       ],
-      "githubLink": "https://github.com/Infikey-Technologies-Internship/InstituteManagementPortal"
-    }
+      "githubLink": "https://github.com/JAYDIPSINH27/BidSphere"
+    } 
   ]
   
