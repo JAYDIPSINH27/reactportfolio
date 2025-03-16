@@ -1,25 +1,28 @@
 {
-    "skills": [
-      {
-        "category": "Cloud & DevOps ☁️",
-        "details": "AWS, Azure, GCP, Kubernetes, Docker, Terraform, CI/CD, Bash, Jenkins"
-      },
-      {
-        "category": "Programming & Databases 💻",
-        "details": "C, C++, JavaScript, TypeScript, Java, Python, SQL, NoSQL, MongoDB, MySQL"
-      },
-      {
-        "category": "Development Tools 🛠️",
-        "details": "HTML, CSS, TailwindCSS, Node.js, Express.js, React.js, REST, Django, Next.js"
-      },
-      {
-        "category": "Data & AI 🧠",
-        "details": "Hadoop, Spark, TensorFlow, Deep Learning, GenerativeAI, LLM, GIS (ArcGIS, QGIS)"
-      },
-      {
-        "category": "Other Tools 🛠️",
-        "details": "VSCode, IntelliJ, Git, GitHub, GitLab, Jira, Figma, PowerBI, Linux, MS Office"
-      }
-    ]
-  }
-  
+  "skills": [
+    {
+      "category": "Programming & Web 💻",
+      "details": "C++, JavaScript, TypeScript, Java, Python, SQL, NoSQL, HTML, CSS"
+    },
+    {
+      "category": "Cloud & DevOps ☁️",
+      "details": "AWS, Azure, GCP, Kubernetes, Docker, Terraform, CloudFormation, Linux"
+    },
+    {
+      "category": "Databases 🗄️",
+      "details": "MongoDB, MySQL, PostgreSQL, AWS DynamoDB, Amazon RDS, Azure CosmosDB"
+    },
+    {
+      "category": "Development Tools 🛠️",
+      "details": "Node.js, Express.js, React.js, REST, GraphQL, Django, Next.js, Springboot, JUnit, Jest"
+    },
+    {
+      "category": "Data & AI 🧠",
+      "details": "MATLAB, Hadoop, Spark, TensorFlow, Deep Learning, GenerativeAI, LLM, HuggingFace, ArcGIS"
+    },
+    {
+      "category": "Tools & Concepts ⚙️",
+      "details": "Postman, VSCode, IntelliJ, Git, GitHub, GitLab, Jira, Powershell, Figma, PowerBI, Office365; OOP, REST APIs, Data Structures & Algorithms, Agile, IaC, SOLID, Version Control, Full Stack, CI/CD"
+    }
+  ]
+}

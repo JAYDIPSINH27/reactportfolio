@@ -1,38 +1,48 @@
 [
-    {
-      "company": "BISAG-N 🛰️",
-      "role": "Software Developer Intern",
-      "period": "Jan 2023 - Apr 2023",
-      "details": [
-        "Built 'Road Surface Quality Investigation' to detect road damage using MERN, Django, ArcGIS, GCP, Cloudinary, CV2.",
-        "Trained deep learning models (FasterRCNN, SSD, RetinaNet) with labeled dataset, boosting accuracy by 15%.",
-        "Optimized satellite image retrieval using Python multithreading, cutting time from 2 minutes to 50 seconds.",
-        "Applied grayscale, linear transformation, Otsu’s thresholding, Hough Transform to clean data and extract road segments.",
-        "Designed UML diagrams to model system architecture, ensuring clarity in component interaction and project scalability."
-      ],
-      "certificateLink": "https://drive.google.com/file/d/1ZSOdH_hylqyPQ_0Mw5SfJDFroob7JKct/view"
-    },
-    {
-      "company": "Future Ready Talent 🌐",
-      "role": "Azure Cloud Virtual Intern",
-      "period": "Jul 2021 - Nov 2021",
-      "details": [
-        "Spearheaded the project under the TCS-Microsoft SIRIUS initiative, focusing on MS Azure and Power Platform training.",
-        "Deployed the Institute Management Portal using Azure App Services, ensuring scalability and availability.",
-        "Integrated Azure CosmosDB for student and faculty data management, improving data handling for large-scale datasets."
-      ],
-      "certificateLink": "https://drive.google.com/file/d/1lRxrKSH9eOEC-s-tBNP8qNhqH5VE6cK0/view"
-    },
-    {
-      "company": "CHARUSAT University 🏭",
-      "role": "Full Stack Developer Intern",
-      "period": "May 2021 - Jun 2021",
-      "details": [
-        "Developed an inventory system for Envin Engineering, optimizing parts tracking and automating service billing.",
-        "Managed MySQL database design, optimizing CRUD operations and enhancing data decisions with complex queries.",
-        "Increased order preparation accuracy by 15% through improved visibility into mechanical parts stock."
-      ],
-      "certificateLink": "https://drive.google.com/file/d/1Ej3lp81SUVch07Icw5CER24K16UwHV8l/view"
-    }
-  ]
-  
+  {
+    "company": "Persuasive Computing Lab",
+    "role": "Software Developer",
+    "period": "Jan 2025 - Present",
+    "details": [
+      "Developed BiasBreaker, a web app for bias reduction using Django, Hugging Face, and AI-driven content.",
+      "Built Django REST APIs for real-time article generation, quiz scoring, and alternative perspective suggestions.",
+      "Implemented eye-tracking with Tobii Pro SDK to analyze reading patterns and measure focus retention.",
+      "Designed an interactive Next.js, React, and Redux dashboard for personalized content, insights, and progress.",
+      "Created persuasive UI strategies with gamification, visual nudges, and real-time WebSocket alerts for engagement."
+    ]
+  },
+  {
+    "company": "BISAG-N",
+    "role": "Software Developer Intern",
+    "period": "Jan 2023 - Apr 2023",
+    "details": [
+      "Built 'Road Surface Quality Investigation' to localize road damage using MERN, Django, ArcGIS, GCP, and CV2.",
+      "Trained deep learning models (FasterRCNN, SSD, RetinaNet) with labelled dataset, boosting accuracy by 15%.",
+      "Optimized satellite image retrieval using Python multithreading, reducing processing time from 2 minutes to 50 seconds.",
+      "Applied linear transformation, Otsu’s thresholding, and Hough Transform to clean data and extract road segments."
+    ],
+    "certificateLink": "https://drive.google.com/file/d/1ZSOdH_hylqyPQ_0Mw5SfJDFroob7JKct/view"
+  },
+  {
+    "company": "Future Ready Talent",
+    "role": "Azure Cloud Intern",
+    "period": "Jul 2021 - Nov 2021",
+    "details": [
+      "Spearheaded the project under the TCS-Microsoft SIRIUS initiative, focusing on MS Azure and Power Platform training.",
+      "Deployed the Institute Management Portal using Azure App Services, ensuring scalability and availability.",
+      "Integrated Azure CosmosDB for student and faculty data management, improving data handling for huge datasets."
+    ],
+    "certificateLink": "https://drive.google.com/file/d/1lRxrKSH9eOEC-s-tBNP8qNhqH5VE6cK0/view"
+  },
+  {
+    "company": "CHARUSAT University",
+    "role": "Full Stack Developer Intern",
+    "period": "May 2021 - Jul 2021",
+    "details": [
+      "Developed an inventory system for Envin Engineering Enterprise, optimizing parts tracking and automating billing.",
+      "Managed MySQL database design, optimizing CRUD operations and enhancing data decisions with complex queries.",
+      "Increased order preparation accuracy by 15% through improved visibility into mechanical parts stock."
+    ],
+    "certificateLink": "https://drive.google.com/file/d/1Ej3lp81SUVch07Icw5CER24K16UwHV8l/view"
+  }
+]

@@ -1,36 +1,59 @@
 [
-    {
-      "title": "DalVacationHome 🏠",
-      "stack": "ReactJS, NodeJS, AWS, GCP",
-      "details": [
-        "Architected and deployed a multi-cloud booking app on AWS and Google Cloud, ensuring scalability and 99.9% uptime.",
-        "Designed an Amazon Lex Chatbot and AWS Lambda-based booking logic for user interaction and support.",
-        "Automated deployment via GitLab CI/CD, and implemented Infrastructure As Code using CloudFormation.",
-        "Implemented booking and authentication notifications with AWS SNS and SQS, ensuring real-time updates and security."
-      ],
-      "githubLink": "https://github.com/JAYDIPSINH27/DalVacationHome"
-    },
-    {
-      "title": "FurrEverHome 🐾",
-      "stack": "SpringBoot, ReactJS",
-      "details": [
-        "Created a CI/CD pipeline with Docker and GitLab runners, reducing build and deployment times by 60% through caching.",
-        "Applied Test Driven Development (TDD) using JUnit, achieving 80% code coverage and reducing bugs by 50%.",
-        "Followed Agile Methodologies completing user stories, client meetings, on-time delivery, and increasing client satisfaction."
-      ],
-      "githubLink": "https://github.com/JAYDIPSINH27/FurrEverHome"
-    },
-    {
-      "title": "BidSphere 📑",
-      "stack": "MongoDB, AWS, ReactJS, NodeJS, ExpressJS, SpringBoot, Microservices, Stripe",
-      "details": [
-        "Architected a scalable microservices backend with Node.js and Spring Boot, enhancing performance and team collaboration.",
-        "Developed a document and tender management module using Spring Boot and AWS S3 for storing 5 document types.",
-        "Integrated Stripe payment gateway and APIs into Node.js microservices for scalable and secure transaction processing.",
-        "Developed landing page with Framer Motion's AnimatePresence, optimizing DOM manipulation for faster load times.",
-        "Applied Atomic Design in ReactJS to build over 20 reusable UI components, reducing development time for new features."
-      ],
-      "githubLink": "https://github.com/JAYDIPSINH27/BidSphere"
-    } 
-  ]
-  
+  {
+    "title": "Les Chat Aws",
+    "stack": "AWS, EC2, VPC, RDS, CloudWatch, SNS, Elastic Load Balancing, GraphQL",
+    "details": [
+      "Designed a scalable, multi-tier AWS infrastructure using CloudFormation to ensure high availability and resilience.",
+      "Implemented auto-scaling and self-healing cloud infrastructure, optimizing resource utilization for better cost efficiency.",
+      "Developed a secure RDS PostgreSQL database with multi-AZ deployment, ensuring fault tolerance and data reliability.",
+      "Deployed containerized applications using Docker to enable scalable and efficient cloud-based software deployments.",
+      "Configured comprehensive monitoring with AWS CloudWatch and set real-time alerts for infrastructure monitoring.",
+      "Ensured high availability with a fault-tolerant network architecture using VPC, private subnets, and NAT Gateway."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/les-chat-aws"
+  },
+  {
+    "title": "DalVacationHome",
+    "stack": "ReactJS, NodeJS, Python, AWS, GCP, Docker, DynamoDB",
+    "details": [
+      "Architected and deployed a multi-cloud booking app on AWS and Google Cloud, ensuring scalability and uptime.",
+      "Designed an Amazon Lex Chatbot and AWS Lambda based booking logic for user interaction and support.",
+      "Automated via GitLab CI/CD, implemented Infrastructure as Code using CloudFormation, and managed Jira board.",
+      "Implemented ETL Process using BigQuery and Google Natural Language API for sentiment analysis.",
+      "Created booking and notifications using AWS SNS, SQS, and GCP Pub/Sub for real-time communication."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/DalVacationHome"
+  },
+  {
+    "title": "FurrEverHome",
+    "stack": "SpringBoot, ReactJS, MySQL, Maven, Junit, Docker",
+    "details": [
+      "Created a CI/CD pipeline with Docker and GitLab, reducing build and deployment times by 60% through caching.",
+      "Applied Test Driven Development (TDD) using JUnit, achieving 80% code coverage and reducing bugs by 50%.",
+      "Followed SDLC planning, design, development, unit testing, integration testing, and deployment to meet requirements.",
+      "Followed Agile Methodologies by completing user stories, scrum meetings, and on-time delivery, increasing client satisfaction."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/FurrEverHome"
+  },
+  {
+    "title": "BidSphere",
+    "stack": "MongoDB, AWS, ReactJS, NodeJS, ExpressJS, SpringBoot, Microservices, Stripe",
+    "details": [
+      "Architected a microservices backend with NodeJS and Spring Boot, enhancing performance and team collaboration.",
+      "Developed a document and tender management module using Spring Boot and AWS S3 for storing 5 document types.",
+      "Designed a landing page with Framer Motion’s AnimatePresence, optimizing DOM manipulation for faster load times.",
+      "Integrated Stripe’s payment gateway and APIs into Node.js microservices for secure transaction processing."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/BidSphere"
+  },
+  {
+    "title": "K8s Microservice",
+    "stack": "GCP, Terraform, NodeJS, ExpressJS, Kubernetes, Microservices",
+    "details": [
+      "Developed a CI/CD pipeline using Google Cloud Build, automating deployments to Google Kubernetes Engine (GKE).",
+      "Configured persistent volume for shared data storage and designed RESTful APIs for inter-service communication.",
+      "Automated GKE cluster provisioning using Terraform, optimizing infrastructure setup and deployment."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/k8s-microservice"
+  }
+]

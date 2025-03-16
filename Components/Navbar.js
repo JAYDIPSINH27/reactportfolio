@@ -1,9 +1,32 @@
 import React from "react";
-import Link from 'next/link'
-import { BsFillMoonStarsFill } from 'react-icons/bs'
-import { useState } from 'react'
+import Link from "next/link";
+import { BsFillMoonStarsFill } from "react-icons/bs";
+import { useState, useEffect } from "react";
 
-const Navbar = ({darkMode, setDarkMode}) => {
+const Navbar = () => {
+  // Dark mode state can be maintained globally or via a context.
+  // For simplicity, we use local state and store preference in localStorage.
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check stored preference
+    const storedMode = localStorage.getItem("darkMode");
+    if (storedMode === "true") {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (!darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 py-5 px-10 shadow-sm flex justify-between border-b-2 bg-opacity-50 bg-white dark:bg-slate-900">
@@ -12,10 +35,7 @@ const Navbar = ({darkMode, setDarkMode}) => {
       </h1>
       <ul className="flex items-center">
         <li>
-          <BsFillMoonStarsFill 
-            onClick={() => setDarkMode(!darkMode)} 
-            className="cursor-pointer text-2xl dark:text-slate-50" 
-          />
+          <BsFillMoonStarsFill onClick={toggleDarkMode} className="cursor-pointer text-2xl dark:text-slate-50" />
         </li>
         <li>
           <a
