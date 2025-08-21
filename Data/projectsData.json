@@ -36,6 +36,18 @@
     "githubLink": "https://github.com/JAYDIPSINH27/FurrEverHome"
   },
   {
+    "title": "SOFABoot – Open Source Contribution (Merged PR)",
+    "stack": "Java, JUnit 5, Mockito, Spring Boot/SOFABoot",
+    "details": [
+      "Authored unit tests for core components: startup/StartupReporter, compatibility/VerificationResultTests, and util/SofaBootEnvUtilsTests to harden startup metrics, compatibility checks, and environment utilities.",
+      "Coverage: Documented “Coverage Before” and “Coverage After” in the PR (via images) showing a clear increase in both line and branch coverage for the touched modules.",
+      "Expanded edge-case validation for startup reporting, verification outcomes (success/failure states), and env variable resolution to ensure deterministic behavior.",
+      "Adopted JUnit 5 + Mockito patterns for isolated, fast tests with concise assertions and clear failure messages.",
+      "PR merged into the upstream SOFABoot codebase as an open-source contribution."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/sofa-boot"
+  },
+  {
     "title": "BidSphere",
     "stack": "MongoDB, AWS, ReactJS, NodeJS, ExpressJS, SpringBoot, Microservices, Stripe",
     "details": [
@@ -55,5 +67,42 @@
       "Automated GKE cluster provisioning using Terraform, optimizing infrastructure setup and deployment."
     ],
     "githubLink": "https://github.com/JAYDIPSINH27/k8s-microservice"
-  }
+  },
+  {
+    "title": "InkSync AWS (IaC)",
+    "stack": "AWS CloudFormation, VPC, ALB, EC2 Auto Scaling, Docker, CloudWatch, SNS",
+    "details": [
+      "Provisioned a production-style VPC with public/private subnets across two AZs, Internet/NAT Gateways, bastion access, and locked-down private compute.",
+      "Deployed separate frontend and backend Auto Scaling Groups via Launch Templates that install Docker and run versioned images.",
+      "Configured an Application Load Balancer with two listeners (80→frontend, 81→backend), sticky sessions, and 1-hour idle timeout for WebSockets.",
+      "Enabled CPU-based step scaling with CloudWatch alarms and email notifications via SNS for proactive ops.",
+      "Health-checked target groups with automatic unhealthy instance replacement and zero-downtime scaling."
+    ],
+    "githubLink": "https://github.com/JAYDIPSINH27/InkSync-aws"
+  },
+  {
+"title": "Spider Bug Tracker (MERN)",
+"stack": "React, Redux Toolkit, Material-UI, React Router, Node.js, Express, MongoDB, JWT, Bcrypt, React Hook Form, date-fns",
+"details": [
+"Built a full-stack bug tracking app with a React front end (Redux Toolkit, React Router, React Hook Form, Material-UI) and a Node.js/Express API backed by MongoDB.",
+"Implements role-based auth with JWT; supports separate logins for admins/project leads and developers, with password hashing via bcrypt.",
+"Project lead workflow: create, edit, and delete projects; add developers to a project; assign bugs to specific developers.",
+"Per-bug discussion thread so teams can collaborate within the bug detail view; developers can see all bugs for their projects and a count of those assigned to them.",
+"Repo organized as client/ and server/ workspaces with npm scripts for local dev (“npm run client”, “npm run server”); environment driven configuration.",
+"Clean, user-friendly UI with reusable components, date formatting via date-fns, and MIT-licensed source."
+],
+"githubLink": "https://github.com/JAYDIPSINH27/spider-bug-tracker"
+},
+{
+"title": "Mini Store (MERN)",
+"stack": "React, React Router, Node.js, Express, MongoDB, REST API, Netlify",
+"details": [
+"Built a MERN e-commerce web app for neighborhood general stores so customers can browse products by category, view trending items, and shop from nearby shops.",
+"Implements authentication flows (Sign Up/Sign In) with an Account area, a persistent Cart, and a checkout UI with clear CTAs and delivery/payment option messaging.",
+"Organized as client (SPA) and server (API) workspaces; the server exposes REST endpoints for products, shops, users, and cart operations while the client consumes them via Axios/fetch.",
+"Responsive single-page routing for Home, Account, Cart, Shops, and Products, plus promotional sections (e.g., seasonal sale banners, delivery flexibility, multiple payment options).",
+"Deployed the frontend to Netlify for quick previews and sharing; repository is a customized fork adapted to this project’s requirements."
+],
+"githubLink": "https://github.com/JAYDIPSINH27/mini-store"
+}
 ]

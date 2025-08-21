@@ -1481,7 +1481,7 @@ export default function Home() {
                 }}
               />
 
-              <MarqueeRow direction="left" speed={36} />
+              <MarqueeRow direction="left" speed={45} />
               {/* <MarqueeRow direction="right" speed={42} /> */}
             </div>
           </motion.div>
