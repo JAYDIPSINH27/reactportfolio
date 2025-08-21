@@ -2,8 +2,8 @@
 import Head from "next/head";
 import Script from "next/script";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Typewriter from "typewriter-effect";
 
 // Icons
@@ -65,62 +65,110 @@ function Counter({ target = 0, duration = 1500 }) {
 }
 
 /* ---- inline component ---- */
-function MarqueeRow({ direction = "left", speed = 36 }) {
+function MarqueeRow({
+  direction = "left",
+  speed = 36,
+  pauseOnHover = true,
+  draggable = true,
+}) {
   // Duplicate so the loop looks seamless
   const items = useMemo(() => [...recommendations, ...recommendations], []);
+  const controls = useAnimation();
 
-  const xFrom = direction === "left" ? "0%" : "-50%";
-  const xTo = direction === "left" ? "-50%" : "0%";
+  // Build the looping keyframes
+  const loopKeyframes = useMemo(() => {
+    const xFrom = direction === "left" ? "0%" : "-50%";
+    const xTo = direction === "left" ? "-50%" : "0%";
+    return { xFrom, xTo };
+  }, [direction]);
+
+  // Start/stop helpers
+  const startLoop = useCallback(() => {
+    controls.start({
+      x: [loopKeyframes.xFrom, loopKeyframes.xTo],
+      transition: { duration: speed, ease: "linear", repeat: Infinity },
+    });
+  }, [controls, loopKeyframes, speed]);
+
+  useEffect(() => {
+    startLoop();
+    return () => controls.stop();
+  }, [startLoop, controls]);
+
+  const handleEnter = () => {
+    if (pauseOnHover) controls.stop();
+  };
+  const handleLeave = () => {
+    if (pauseOnHover) startLoop();
+  };
+  const handleDragStart = () => controls.stop();
+  const handleDragEnd = () => startLoop();
+
+  const dragProps = draggable
+    ? {
+        drag: "x",
+        dragConstraints: { left: -10000, right: 10000 }, // large soft bounds
+        dragElastic: 0.05,
+        onDragStart: handleDragStart,
+        onDragEnd: handleDragEnd,
+      }
+    : {};
 
   return (
-    <motion.div
-      className="flex gap-6 will-change-transform"
-      animate={{ x: [xFrom, xTo] }}
-      transition={{ duration: speed, ease: "linear", repeat: Infinity }}
-    >
-      {items.map((t, i) => (
-        <article
-          key={`${t.name}-${i}`}
-          className="min-w-[300px] max-w-[360px] shrink-0 rounded-2xl p-[1px] bg-gradient-to-r from-orange-400/40 to-amber-500/40 shadow"
-        >
-          <div className="relative h-full rounded-2xl p-5 bg-white/80 dark:bg-gray-800/60 backdrop-blur border border-gray-200/70 dark:border-gray-700/70 transition hover:-translate-y-1 hover:shadow-md">
-            {/* decorative quote */}
-            <FaQuoteLeft
-              className="absolute -top-3 -left-3 text-orange-500/30 text-3xl"
-              aria-hidden
-            />
+    <div className="relative w-full overflow-hidden">
+      {" "}
+      {/* clips while dragging */}
+      <motion.div
+        className="flex gap-6 will-change-transform cursor-grab active:cursor-grabbing"
+        animate={controls}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        {...dragProps}
+      >
+        {items.map((t, i) => (
+          <article
+            key={`${t.name}-${i}`}
+            className="min-w-[300px] max-w-[360px] shrink-0 rounded-2xl p-[1px] bg-gradient-to-r from-orange-400/40 to-amber-500/40 shadow"
+          >
+            <div className="relative h-full rounded-2xl p-5 bg-white/80 dark:bg-gray-800/60 backdrop-blur border border-gray-200/70 dark:border-gray-700/70 transition hover:-translate-y-1 hover:shadow-md">
+              {/* decorative quote */}
+              <FaQuoteLeft
+                className="absolute -top-3 -left-3 text-orange-500/30 text-3xl"
+                aria-hidden
+              />
 
-            {/* header */}
-            <div className="flex items-center gap-3">
-              <Avatar name={t.name} />
-              <div className="text-left">
-                <p className="font-semibold text-gray-900 dark:text-white">
-                  {t.name}
-                </p>
-                {t.title && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {t.title}
+              {/* header */}
+              <div className="flex items-center gap-3">
+                <Avatar name={t.name} />
+                <div className="text-left">
+                  <p className="font-semibold text-gray-900 dark:text-white">
+                    {t.name}
                   </p>
-                )}
+                  {t.title && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {t.title}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* quote (clamped to keep heights tidy; no expanding) */}
-            <p
-              className="mt-3 text-gray-800 dark:text-gray-200 leading-relaxed"
-              style={{
-                display: "-webkit-box",
-                WebkitLineClamp: 6,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
-              “{t.text}”
-            </p>
-          </div>
-        </article>
-      ))}
-    </motion.div>
+              {/* quote (clamped; no expand) */}
+              <p
+                className="mt-3 text-gray-800 dark:text-gray-200 leading-relaxed"
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 6,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                “{t.text}”
+              </p>
+            </div>
+          </article>
+        ))}
+      </motion.div>
+    </div>
   );
 }
 
@@ -1401,52 +1449,137 @@ export default function Home() {
           {/* Modal */}
           <AnimatePresence>
             {selectedProject && (
-              <motion.div
-                className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={closeProjectModal}
-              >
+              <>
+                {/* Backdrop */}
                 <motion.div
-                  className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-2xl w-full border border-gray-200 dark:border-gray-800"
-                  initial={{ scale: 0.9, y: 10 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.95, y: 10 }}
-                  onClick={(e) => e.stopPropagation()}
+                  className="fixed inset-0 z-50 bg-black/60"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={closeProjectModal}
+                  aria-hidden="true"
+                />
+
+                {/* Modal container (handles page padding & scroll) */}
+                <motion.div
+                  className="fixed inset-0 z-50 overflow-y-auto
+                   px-3 sm:px-4 md:px-6 lg:px-8
+                   pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="project-title"
+                  onClick={closeProjectModal}
                 >
-                  <h4 className="text-2xl font-bold text-orange-600 mb-3">
-                    {selectedProject.title}
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 mb-3">
-                    <strong>Tech Stack:</strong> {selectedProject.stack || "—"}
-                  </p>
-                  <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
-                    {(selectedProject.details || []).map((d, i) => (
-                      <li key={i}>{d}</li>
-                    ))}
-                  </ul>
-                  {selectedProject.githubLink && (
-                    <a
-                      href={selectedProject.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-orange-600 hover:underline inline-block mt-4"
+                  <div className="flex min-h-full items-end sm:items-center justify-center">
+                    {/* Panel */}
+                    <motion.div
+                      className="w-full
+                       max-w-screen-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl
+                       bg-white dark:bg-gray-900
+                       rounded-t-2xl sm:rounded-2xl
+                       shadow-2xl border border-gray-200 dark:border-gray-800
+                       overflow-hidden"
+                      initial={{ y: 32, scale: 0.98, opacity: 0 }}
+                      animate={{ y: 0, scale: 1, opacity: 1 }}
+                      exit={{ y: 24, scale: 0.98, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 28,
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      tabIndex={-1}
+                      autoFocus
+                      onKeyDown={(e) =>
+                        e.key === "Escape" && closeProjectModal()
+                      }
                     >
-                      View on GitHub
-                    </a>
-                  )}
-                  <div className="flex justify-end">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      onClick={closeProjectModal}
-                      className="mt-6 px-6 py-2 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition"
-                    >
-                      Close
-                    </motion.button>
+                      {/* Header */}
+                      <div
+                        className="flex items-start justify-between
+                            px-4 sm:px-6 lg:px-8
+                            pt-4 pb-3 border-b border-gray-200/70 dark:border-gray-800/70"
+                      >
+                        <h4
+                          id="project-title"
+                          className="text-lg sm:text-xl md:text-2xl font-bold text-orange-600"
+                        >
+                          {selectedProject.title}
+                        </h4>
+                        <button
+                          onClick={closeProjectModal}
+                          className="ml-3 inline-flex h-9 w-9 items-center justify-center rounded-full
+                           text-gray-500 hover:text-gray-800 hover:bg-gray-100
+                           dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800
+                           focus:outline-none focus:ring-2 focus:ring-orange-400"
+                          aria-label="Close"
+                        >
+                          ✕
+                        </button>
+                      </div>
+
+                      {/* Body: responsive grid; scrolls when long */}
+                      <div
+                        className="px-4 sm:px-6 lg:px-8 py-4
+                            max-h-[75vh] sm:max-h-[80vh] overflow-y-auto"
+                      >
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+                          {/* Left column: meta */}
+                          <div className="md:col-span-5 lg:col-span-4">
+                            <p className="text-gray-700 dark:text-gray-300 mb-3 text-sm sm:text-base">
+                              <strong>Tech Stack:</strong>{" "}
+                              {selectedProject.stack || "—"}
+                            </p>
+
+                            {/* Optional: repo/button area */}
+                            {selectedProject.githubLink && (
+                              <a
+                                href={selectedProject.githubLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center
+                                 px-4 py-2 rounded-full
+                                 bg-gray-900 text-white hover:bg-gray-800
+                                 dark:bg-gray-800 dark:hover:bg-gray-700
+                                 text-sm sm:text-base"
+                              >
+                                View on GitHub
+                              </a>
+                            )}
+                          </div>
+
+                          {/* Right column: details list */}
+                          <div className="md:col-span-7 lg:col-span-8">
+                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2 text-sm sm:text-base">
+                              {(selectedProject.details || []).map((d, i) => (
+                                <li key={i}>{d}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Footer */}
+                      <div
+                        className="px-4 sm:px-6 lg:px-8 pb-4 pt-2 border-t border-gray-200/70 dark:border-gray-800/70
+                            flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2"
+                      >
+                        <motion.button
+                          whileHover={{ scale: 1.03 }}
+                          onClick={closeProjectModal}
+                          className="px-6 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition
+                           w-full sm:w-auto"
+                        >
+                          Close
+                        </motion.button>
+                      </div>
+                    </motion.div>
                   </div>
                 </motion.div>
-              </motion.div>
+              </>
             )}
           </AnimatePresence>
         </section>
