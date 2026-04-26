@@ -166,7 +166,7 @@ const Navbar = () => {
 
             {/* Resume (kept from your original, restyled to match) */}
             <a
-              href="https://drive.google.com/file/d/1Qnkz8tM8R5gZ7tKlJO0h-Y0x2q1nns1x/view?usp=sharing"
+              href="https://drive.google.com/file/d/1UIxb8HC4efm3YDymN3AGr3dep9BiNI40/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gradient-to-r from-orange-500 to-amber-600 text-white px-4 py-2 rounded-full shadow hover:shadow-md hover:opacity-95 transition"
@@ -219,7 +219,7 @@ const Navbar = () => {
               ))}
 
               <a
-                href="https://drive.google.com/file/d/1Qnkz8tM8R5gZ7tKlJO0h-Y0x2q1nns1x/view?usp=sharing"
+                href="https://drive.google.com/file/d/1UIxb8HC4efm3YDymN3AGr3dep9BiNI40/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-1 rounded-md px-3 py-2 text-left bg-gradient-to-r from-orange-500 to-amber-600 text-white"
