@@ -1,8 +1,21 @@
 [
+    {
+    "company": "Nova Scotia Health Authority",
+    "role": "Intern Support Consultant",
+    "period": "Feb 2026– Present",
+    "details": [
+      "Built Excel & PowerBI dashboards to track deployment, downtime planning, and metrics for the Health CIS rollout.",
+      "Analyzed operational datasets and generated data-driven reports supporting Deployment & Operations planning.",
+      "Coordinated deployment schedules and readiness tracking using structured planning sheets.",
+      "Collaborated with Command Centre, Support Centre, and At-The-Elbow teams to maintain operational stability.",
+      "Contributed to development of Slow Down Survivor, a Godot-based strategy simulation used to model clinic readiness,planning and operational decision-making.",
+      "Implemented game logic and UI components using GDScript, representing clinic metrics such as Slow Down, Staff Training, Waitlist Capacity, and Morale."
+    ]
+  },
   {
     "company": "Persuasive Computing Lab",
     "role": "Software Developer",
-    "period": "Jan 2025 - Present",
+    "period": "Jan 2025 - May 2025",
     "details": [
       "Developed BiasBreaker, a web app for bias reduction using Django, Hugging Face, and AI-driven content.",
       "Built Django REST APIs for real-time article generation, quiz scoring, and alternative perspective suggestions.",
