@@ -41,6 +41,8 @@ import skillsData from "../Data/skillsData.json";
 import CustomCursor from "../Components/CustomCursor";
 import BackToTopButton from "../Components/BackToTopButton";
 
+import ProjectExplanations from "../Components/ProjectExplanations";
+import projectExplanationsData from "../Data/projectExplanationsData";
 /* --------------------------------------------
    Small utilities + components
 ---------------------------------------------*/
@@ -65,105 +67,93 @@ function Counter({ target = 0, duration = 1500 }) {
 }
 
 /* ---- inline component ---- */
-function MarqueeRow({
-  direction = "left",
-  speed = 36,
-  pauseOnHover = true,
-  draggable = true,
-}) {
-  // Duplicate so the loop looks seamless
+function MarqueeRow({ speed = 42 }) {
   const items = useMemo(() => [...recommendations, ...recommendations], []);
   const controls = useAnimation();
 
-  // Build the looping keyframes
-  const loopKeyframes = useMemo(() => {
-    const xFrom = direction === "left" ? "0%" : "-50%";
-    const xTo = direction === "left" ? "-50%" : "0%";
-    return { xFrom, xTo };
-  }, [direction]);
-
-  // Start/stop helpers
   const startLoop = useCallback(() => {
     controls.start({
-      x: [loopKeyframes.xFrom, loopKeyframes.xTo],
-      transition: { duration: speed, ease: "linear", repeat: Infinity },
+      x: ["0%", "-50%"],
+      transition: {
+        duration: speed,
+        ease: "linear",
+        repeat: Infinity,
+      },
     });
-  }, [controls, loopKeyframes, speed]);
+  }, [controls, speed]);
 
   useEffect(() => {
     startLoop();
     return () => controls.stop();
   }, [startLoop, controls]);
 
-  const handleEnter = () => {
-    if (pauseOnHover) controls.stop();
-  };
-  const handleLeave = () => {
-    if (pauseOnHover) startLoop();
-  };
-  const handleDragStart = () => controls.stop();
-  const handleDragEnd = () => startLoop();
-
-  const dragProps = draggable
-    ? {
-        drag: "x",
-        dragConstraints: { left: -10000, right: 10000 }, // large soft bounds
-        dragElastic: 0.05,
-        onDragStart: handleDragStart,
-        onDragEnd: handleDragEnd,
-      }
-    : {};
-
   return (
-    <div className="relative w-full overflow-hidden">
-      {" "}
-      {/* clips while dragging */}
+    <div className="relative w-full overflow-hidden py-2">
       <motion.div
-        className="flex gap-6 will-change-transform cursor-grab active:cursor-grabbing"
+        className="flex gap-6 w-max will-change-transform"
         animate={controls}
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-        {...dragProps}
+        onMouseEnter={() => controls.stop()}
+        onMouseLeave={startLoop}
       >
         {items.map((t, i) => (
           <article
             key={`${t.name}-${i}`}
-            className="min-w-[300px] max-w-[360px] shrink-0 rounded-2xl p-[1px] bg-gradient-to-r from-orange-400/40 to-amber-500/40 shadow"
+            className="w-[330px] md:w-[390px] shrink-0 rounded-3xl p-[1px] bg-gradient-to-br from-orange-400/50 to-amber-500/40 shadow-sm"
           >
-            <div className="relative h-full rounded-2xl p-5 bg-white/80 dark:bg-gray-800/60 backdrop-blur border border-gray-200/70 dark:border-gray-700/70 transition hover:-translate-y-1 hover:shadow-md">
-              {/* decorative quote */}
-              <FaQuoteLeft
-                className="absolute -top-3 -left-3 text-orange-500/30 text-3xl"
-                aria-hidden
-              />
+            <div className="relative min-h-[410px] rounded-3xl p-6 bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-800 overflow-hidden">
+              <FaQuoteLeft className="absolute top-5 right-5 text-orange-500/20 text-4xl" />
 
-              {/* header */}
-              <div className="flex items-center gap-3">
-                <Avatar name={t.name} />
-                <div className="text-left">
-                  <p className="font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center gap-4">
+                <a
+                  href={t.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0"
+                >
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    className="h-14 w-14 rounded-full object-cover border-2 border-orange-500"
+                    onError={(e) => {
+                      e.currentTarget.src = "/avatar.png";
+                    }}
+                  />
+                </a>
+
+                <div className="min-w-0">
+                  <a
+                    href={t.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-gray-900 dark:text-white hover:text-orange-500 transition block truncate"
+                  >
                     {t.name}
+                  </a>
+
+                  <p className="text-sm text-gray-500 font-semibold text-gray-500 dark:text-gray-400 line-clamp-2">
+                    {t.title}
                   </p>
-                  {t.title && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {t.title}
-                    </p>
-                  )}
                 </div>
               </div>
 
-              {/* quote (clamped; no expand) */}
-              <p
-                className="mt-3 text-gray-800 dark:text-gray-200 leading-relaxed"
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 6,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
+<div className="mt-4 h-[210px] overflow-y-auto pr-2 custom-scrollbar">
+    <p className="text-[14px] leading-7 text-gray-600 dark:text-gray-300">
+        “{t.text}”
+    </p>
+    
+</div>
+
+<div className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none" />
+
+
+              <a
+                href={t.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-5 left-6 text-sm font-semibold text-orange-500 hover:text-orange-600"
               >
-                “{t.text}”
-              </p>
+                View LinkedIn →
+              </a>
             </div>
           </article>
         ))}
@@ -1038,7 +1028,7 @@ export default function Home() {
                   skills={skillsData.skills}
                   experience={experienceData}
                   education={educationData}
-                  resumeUrl="https://drive.google.com/file/d/1Qnkz8tM8R5gZ7tKlJO0h-Y0x2q1nns1x/view?usp=sharing"
+                  resumeUrl="/Jaydipsinh_Padhiyar.pdf"
                   sectionIds={[
                     "hero",
                     "stats",
@@ -1124,7 +1114,7 @@ export default function Home() {
         </section>
 
         {/* STATS */}
-        <section id="stats" className="py-16">
+        {/* <section id="stats" className="py-16">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -1158,7 +1148,7 @@ export default function Home() {
               ))}
             </div>
           </motion.div>
-        </section>
+        </section> */}
 
         {/* ABOUT */}
         <section id="about" className="py-16">
@@ -1192,6 +1182,8 @@ export default function Home() {
             </p>
           </motion.div>
         </section>
+
+        <ProjectExplanations projects={projectExplanationsData} />
 
         {/* SKILLS */}
         <section id="skills" className="py-16 bg-gray-50 dark:bg-gray-900/40">
@@ -1597,9 +1589,9 @@ export default function Home() {
             className="max-w-7xl mx-auto px-6"
           >
             <SectionHeader
-              title="Testimonials"
-              icon={<FaQuoteLeft className="text-orange-500" />}
-            />
+  title="LinkedIn Recommendations"
+  icon={<FaQuoteLeft className="text-orange-500" />}
+/>
 
             <div className="relative space-y-6 overflow-hidden">
               {/* subtle edge fade */}
@@ -1614,7 +1606,9 @@ export default function Home() {
                 }}
               />
 
-              <MarqueeRow direction="left" speed={45} />
+              <div className="relative space-y-6 overflow-hidden">
+  <MarqueeRow speed={100} />
+</div>
               {/* <MarqueeRow direction="right" speed={42} /> */}
             </div>
           </motion.div>

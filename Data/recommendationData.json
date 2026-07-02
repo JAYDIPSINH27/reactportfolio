@@ -1,22 +1,30 @@
 [
-    {
-      "name": "Sabitha Kana, MBA, PMP",
-      "title": "Principal Consultant at SaVi Consulting",
-      "text": "I had the pleasure of working with Jaydip during his internship with the OPOR program and was consistently impressed by his technical aptitude, initiative, and professionalism. He quickly learned new technologies, including Godot, and began making meaningful contributions within days, while also demonstrating strong skills in Git, automation, and data visualization tools such as Power BI, Excel, and Power Automate. Beyond his technical capabilities, he was dependable, proactive, and always willing to take on new challenges or support the team wherever needed. His collaborative approach, strong communication skills, and eagerness to learn made him a valued member of the team. I would not hesitate to recommend him for future opportunities in software development, data analytics, or technology-related roles."
-    },
-    {
-      "name": "Ememobong Akpanekpo",
-      "title": "Senior Software Engineer",
-      "text": "Jaydip was an outstanding teammate and a highly skilled software engineer. His experience in Java, Spring Boot, and DevOps, including CI/CD pipelines, Docker,, was evident in building Furrever Home. Jaydip demonstrated exceptional leadership instincts, always stepping up to guide the team and ensure our goals were met. He consistently went above and beyond, tackling complex problems with innovative solutions. Jaydip's communication skills were top-notch, making him a key player in our team's success. His dedication, technical prowess, and collaborative spirit make him an invaluable asset to any team."
-    },
-    {
-      "name": "Niyam Muliya",
-      "title": "Software Engineer at Jeavio",
-      "text": "During our time in the graduate program, I had the opportunity to work closely with Jaydip on multiple projects. Jaydip consistently impressed with his strong technical skills and a knack for quickly adapting to new challenges. His problem-solving abilities were truly remarkable, tackling even the toughest issues with persistence and creative thinking. Jaydip's expertise in debugging stood out, allowing him to resolve complex problems efficiently. Moreover, he is an exceptional team player who fosters a collaborative and supportive work environment. Working alongside Jaydip was always productive and fulfilling, making him an excellent fit for any software engineering role. I wholeheartedly recommend him based on our collaborative experiences."
-    },
-    {
-      "name": "Vraj Parikh",
-      "title": "Associate Software Engineer at Jeavio",
-      "text": "I had the pleasure of working with Jaydip on multiple projects during our graduate program. He consistently demonstrated exceptional technical proficiency and the ability to adapt quickly to any situation. Jaydip's problem-solving skills and perseverance were truly exemplary, tackling even the most challenging issues with determination and creativity. His debugging skills are among the best I have encountered, often resolving complex problems efficiently and effectively. Collaborating with Jaydip was always a rewarding experience, and I highly recommend him for any software engineering role."
-    }
-  ]
+  {
+    "name": "Sabitha Kana, MBA, PMP",
+    "title": "Principal Consultant at SaVi Consulting",
+    "text": "I had the pleasure of working with Jaydip during his internship with the OPOR program and was consistently impressed by his technical aptitude, initiative, and professionalism. He quickly learned new technologies, including Godot, and began making meaningful contributions within days, while also demonstrating strong skills in Git, automation, and data visualization tools such as Power BI, Excel, and Power Automate. Beyond his technical capabilities, he was dependable, proactive, and always willing to take on new challenges or support the team wherever needed. His collaborative approach, strong communication skills, and eagerness to learn made him a valued member of the team. I would not hesitate to recommend him for future opportunities in software development, data analytics, or technology-related roles.",
+    "image": "https://media.licdn.com/dms/image/v2/C5103AQFXcRq7rV0lrA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1516258920777?e=1784764800&v=beta&t=hG-z5v53wJhBLQyZ1HYcA1YOM0xxlbZ53B2HWA_-7ks",
+    "linkedin": "https://www.linkedin.com/in/sabitha-kana-mba-pmp-04b3801/"
+  },
+  {
+    "name": "Ememobong Akpanekpo",
+    "title": "Senior Software Engineer",
+    "text": "Jaydip was an outstanding teammate and a highly skilled software engineer. His experience in Java, Spring Boot, and DevOps, including CI/CD pipelines, Docker,, was evident in building Furrever Home. Jaydip demonstrated exceptional leadership instincts, always stepping up to guide the team and ensure our goals were met. He consistently went above and beyond, tackling complex problems with innovative solutions. Jaydip's communication skills were top-notch, making him a key player in our team's success. His dedication, technical prowess, and collaborative spirit make him an invaluable asset to any team.",
+    "image": "https://media.licdn.com/dms/image/v2/D4D03AQEZ3setw5_yiQ/profile-displayphoto-crop_800_800/B4DZkvIaQLGkAI-/0/1757432358441?e=1784764800&v=beta&t=Em8pd31QBqRlQnBbpYws8iEmNW4V0KrJqr3fFoCI-uc",
+    "linkedin": "https://www.linkedin.com/in/eakpanekpo/"
+  },
+  {
+    "name": "Niyam Muliya",
+    "title": "Software Engineer at Jeavio",
+    "text": "During our time in the graduate program, I had the opportunity to work closely with Jaydip on multiple projects. Jaydip consistently impressed with his strong technical skills and a knack for quickly adapting to new challenges. His problem-solving abilities were truly remarkable, tackling even the toughest issues with persistence and creative thinking. Jaydip's expertise in debugging stood out, allowing him to resolve complex problems efficiently. Moreover, he is an exceptional team player who fosters a collaborative and supportive work environment. Working alongside Jaydip was always productive and fulfilling, making him an excellent fit for any software engineering role. I wholeheartedly recommend him based on our collaborative experiences.",
+    "image": "https://media.licdn.com/dms/image/v2/D4E03AQHJEM_awwfR3w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1685115834483?e=1784764800&v=beta&t=ATDtY9KEK5iKzkuF8Y8NIm8dK4wVLe9MyshoFmuLj9Y",
+    "linkedin": "https://www.linkedin.com/in/niyam-muliya/"
+  },
+  {
+    "name": "Vraj Parikh",
+    "title": "Associate Software Engineer at Jeavio",
+    "text": "I had the pleasure of working with Jaydip on multiple projects during our graduate program. He consistently demonstrated exceptional technical proficiency and the ability to adapt quickly to any situation. Jaydip's problem-solving skills and perseverance were truly exemplary, tackling even the most challenging issues with determination and creativity. His debugging skills are among the best I have encountered, often resolving complex problems efficiently and effectively. Collaborating with Jaydip was always a rewarding experience, and I highly recommend him for any software engineering role.",
+    "image": "https://media.licdn.com/dms/image/v2/D4D35AQFPYMIp9KSg4w/profile-framedphoto-shrink_800_800/B4DZ7PTz.eJ4AY-/0/1781594538387?e=1783634400&v=beta&t=EPB0klpiAnJU8lIaNWvYipaAqYSqEZbAmkxjc_fs4Ww",
+    "linkedin": "https://www.linkedin.com/in/vraj-daxesh-parikh/"
+  }
+]
