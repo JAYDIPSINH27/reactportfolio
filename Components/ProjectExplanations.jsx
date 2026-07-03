@@ -8,7 +8,6 @@ import {
   FaNodeJs,
   FaAws,
   FaDocker,
-  FaJava,
   FaGamepad,
 } from "react-icons/fa";
 import {
@@ -23,6 +22,9 @@ import {
   SiStripe,
   SiSpringboot,
   SiGodotengine,
+  SiNextdotjs,
+  SiDjango,
+  SiSocketdotio,
 } from "react-icons/si";
 
 const techIcons = {
@@ -46,6 +48,11 @@ const techIcons = {
   "Game Development": <FaGamepad />,
   TypeScript: <SiTypescript />,
   JavaScript: <SiJavascript />,
+  "Next.js": <SiNextdotjs />,
+Django: <SiDjango />,
+WebSocket: <SiSocketdotio />,
+MediaPipe: <span className="font-bold text-xs">MP</span>,
+LLM: <span className="font-bold text-xs">AI</span>,
 };
 
 const getYoutubeEmbed = (videoId) =>
@@ -70,7 +77,10 @@ export default function ProjectExplanations({ projects = [] }) {
     .filter(Boolean);
 
   return (
-    <section id="explanations" className="py-20 bg-white dark:bg-[#0b1220]">
+    <section
+      id="explanations"
+      className="py-20 bg-gray-50 text-gray-900 transition-colors dark:bg-[#030712] dark:text-white"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <p className="uppercase tracking-[0.35em] text-orange-500 font-bold text-sm">
@@ -87,10 +97,10 @@ export default function ProjectExplanations({ projects = [] }) {
           </p>
         </div>
 
-        <div className="rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-slate-950 shadow-xl">
+        <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white shadow-xl transition-colors dark:border-white/10 dark:bg-[#0b1220] dark:shadow-2xl dark:shadow-black/40">
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="p-4 md:p-6 border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-800">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-900">
+            <div className="p-4 md:p-6 border-b border-gray-200 lg:border-b-0 lg:border-r dark:border-white/10">
+              <div className="aspect-video rounded-2xl overflow-hidden bg-gray-100 dark:bg-black shadow-inner">
                 <iframe
                   className="w-full h-full"
                   src={getYoutubeEmbed(activeProject.videoId)}
@@ -101,7 +111,7 @@ export default function ProjectExplanations({ projects = [] }) {
               </div>
             </div>
 
-            <div className="p-6 md:p-8">
+            <div className="p-6 md:p-8 bg-white dark:bg-gradient-to-br dark:from-[#0b1220] dark:to-[#111827]">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
@@ -117,7 +127,7 @@ export default function ProjectExplanations({ projects = [] }) {
                   href={activeProject.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:border-orange-500 hover:text-orange-500 transition"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 hover:border-orange-500 hover:text-orange-500 transition dark:bg-[#111827] dark:border-white/10 dark:text-white dark:hover:border-orange-500 dark:hover:text-orange-400"
                 >
                   GitHub Repo <FaGithub />
                 </a>
@@ -127,7 +137,7 @@ export default function ProjectExplanations({ projects = [] }) {
                 {activeProject.details[0]}
               </p>
 
-              <div className="h-px bg-gray-200 dark:bg-gray-800 my-6" />
+              <div className="h-px bg-gray-200 dark:bg-white/10 my-6" />
 
               <h4 className="font-bold text-gray-900 dark:text-white mb-3">
                 What I Explain
@@ -152,7 +162,7 @@ export default function ProjectExplanations({ projects = [] }) {
                   <div
                     key={tech}
                     title={tech}
-                    className="h-12 w-12 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow-sm flex items-center justify-center text-2xl text-orange-500 hover:-translate-y-1 transition"
+                    className="h-12 w-12 rounded-xl border border-gray-200 bg-white shadow-sm flex items-center justify-center text-2xl text-orange-500 hover:-translate-y-1 transition dark:border-white/10 dark:bg-[#0f172a] dark:text-orange-400 dark:shadow-black/30"
                   >
                     {techIcons[tech] || tech.charAt(0)}
                   </div>
@@ -163,7 +173,7 @@ export default function ProjectExplanations({ projects = [] }) {
                 href={activeProject.explanationLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition mt-7"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition mt-7 shadow-lg shadow-orange-500/20"
               >
                 Watch on YouTube <FaExternalLinkAlt />
               </a>
@@ -177,21 +187,21 @@ export default function ProjectExplanations({ projects = [] }) {
               key={project.title}
               whileHover={{ y: -4 }}
               onClick={() => setActiveProject(project)}
-              className={`text-left rounded-2xl border p-4 bg-white dark:bg-slate-950 shadow transition ${
+              className={`text-left rounded-2xl border p-4 shadow transition bg-white dark:bg-[#0b1220] ${
                 activeProject.title === project.title
-                  ? "border-orange-500"
-                  : "border-gray-200 dark:border-gray-800"
+                  ? "border-orange-500 shadow-orange-500/10"
+                  : "border-gray-200 dark:border-white/10"
               }`}
             >
-              <div className="aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+              <div className="aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-black relative">
                 <img
                   src={getYoutubeThumbnail(project.videoId)}
                   alt={project.title}
                   className="w-full h-full object-cover"
                 />
 
-                <div className="absolute inset-0 bg-black/20 grid place-items-center">
-                  <span className="h-14 w-14 rounded-full bg-white/90 text-orange-500 grid place-items-center text-2xl shadow">
+                <div className="absolute inset-0 bg-black/25 grid place-items-center">
+                  <span className="h-14 w-14 rounded-full bg-white/90 text-orange-500 grid place-items-center text-2xl shadow dark:bg-black/70 dark:text-orange-400">
                     ▶
                   </span>
                 </div>
@@ -215,7 +225,7 @@ export default function ProjectExplanations({ projects = [] }) {
                     <span
                       key={tech}
                       title={tech}
-                      className="h-9 w-9 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center text-orange-500 bg-white dark:bg-slate-900"
+                      className="h-9 w-9 rounded-lg border border-gray-200 bg-white flex items-center justify-center text-orange-500 dark:border-white/10 dark:bg-[#0f172a] dark:text-orange-400"
                     >
                       {techIcons[tech] || tech.charAt(0)}
                     </span>

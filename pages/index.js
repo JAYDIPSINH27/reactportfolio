@@ -43,6 +43,8 @@ import BackToTopButton from "../Components/BackToTopButton";
 
 import ProjectExplanations from "../Components/ProjectExplanations";
 import projectExplanationsData from "../Data/projectExplanationsData";
+
+import InteractiveTerminal from "../Components/InteractiveTerminal";
 /* --------------------------------------------
    Small utilities + components
 ---------------------------------------------*/
@@ -401,491 +403,491 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  function InteractiveTerminal({
-    projects = [],
-    skills = [],
-    experience = [],
-    education = [],
-    resumeUrl,
-    sectionIds = [],
-    persistKey = "term.v1", // unique key so state survives remounts
-  }) {
-    // --- SSR-safe initial state ---
-    const [lines, setLines] = useState([
-      { type: "sys", text: "Welcome! Type 'help' to see available commands." },
-    ]);
-    const [history, setHistory] = useState([]);
-    const [input, setInput] = useState("");
-    const [histIdx, setHistIdx] = useState(-1);
+  // function InteractiveTerminal({
+  //   projects = [],
+  //   skills = [],
+  //   experience = [],
+  //   education = [],
+  //   resumeUrl,
+  //   sectionIds = [],
+  //   persistKey = "term.v1", // unique key so state survives remounts
+  // }) {
+  //   // --- SSR-safe initial state ---
+  //   const [lines, setLines] = useState([
+  //     { type: "sys", text: "Welcome! Type 'help' to see available commands." },
+  //   ]);
+  //   const [history, setHistory] = useState([]);
+  //   const [input, setInput] = useState("");
+  //   const [histIdx, setHistIdx] = useState(-1);
 
-    // --- Refs ---
-    const viewRef = useRef(null);
-    const inputRef = useRef(null);
-    const didFocusRef = useRef(false);
-    const hydratedRef = useRef(false); // ensure we only hydrate once
+  //   // --- Refs ---
+  //   const viewRef = useRef(null);
+  //   const inputRef = useRef(null);
+  //   const didFocusRef = useRef(false);
+  //   const hydratedRef = useRef(false); // ensure we only hydrate once
 
-    // --- Constants (declare ONCE) ---
-    const fileNames = useMemo(
-      () => [
-        "skills.txt",
-        "projects.txt",
-        "experience.txt",
-        "education.txt",
-        "social.md",
-        "resume.pdf",
-      ],
-      []
-    );
-    const knownCommands = useMemo(
-      () => [
-        "help",
-        "clear",
-        "ls",
-        "cat",
-        "projects",
-        "skills",
-        "experience",
-        "education",
-        "whoami",
-        "echo",
-        "open",
-        "resume",
-        "contact",
-        "social",
-        "theme",
-        "time",
-        "goto",
-      ],
-      []
-    );
+  //   // --- Constants (declare ONCE) ---
+  //   const fileNames = useMemo(
+  //     () => [
+  //       "skills.txt",
+  //       "projects.txt",
+  //       "experience.txt",
+  //       "education.txt",
+  //       "social.md",
+  //       "resume.pdf",
+  //     ],
+  //     []
+  //   );
+  //   const knownCommands = useMemo(
+  //     () => [
+  //       "help",
+  //       "clear",
+  //       "ls",
+  //       "cat",
+  //       "projects",
+  //       "skills",
+  //       "experience",
+  //       "education",
+  //       "whoami",
+  //       "echo",
+  //       "open",
+  //       "resume",
+  //       "contact",
+  //       "social",
+  //       "theme",
+  //       "time",
+  //       "goto",
+  //     ],
+  //     []
+  //   );
 
-    // --- Helpers for storage ---
-    const loadState = () => {
-      try {
-        const raw = sessionStorage.getItem(persistKey);
-        if (!raw) return null;
-        const parsed = JSON.parse(raw);
-        if (!parsed || typeof parsed !== "object") return null;
-        return parsed;
-      } catch {
-        return null;
-      }
-    };
-    const saveState = (state) => {
-      try {
-        sessionStorage.setItem(persistKey, JSON.stringify(state));
-      } catch {}
-    };
+  //   // --- Helpers for storage ---
+  //   const loadState = () => {
+  //     try {
+  //       const raw = sessionStorage.getItem(persistKey);
+  //       if (!raw) return null;
+  //       const parsed = JSON.parse(raw);
+  //       if (!parsed || typeof parsed !== "object") return null;
+  //       return parsed;
+  //     } catch {
+  //       return null;
+  //     }
+  //   };
+  //   const saveState = (state) => {
+  //     try {
+  //       sessionStorage.setItem(persistKey, JSON.stringify(state));
+  //     } catch {}
+  //   };
 
-    // --- Hydrate after mount (no SSR read) ---
-    useEffect(() => {
-      if (hydratedRef.current) return;
-      hydratedRef.current = true;
-      const s = loadState();
-      if (s) {
-        if (Array.isArray(s.lines)) setLines(s.lines);
-        if (Array.isArray(s.history)) setHistory(s.history);
-        if (typeof s.input === "string") setInput(s.input);
-      }
-    }, []); // run once
+  //   // --- Hydrate after mount (no SSR read) ---
+  //   useEffect(() => {
+  //     if (hydratedRef.current) return;
+  //     hydratedRef.current = true;
+  //     const s = loadState();
+  //     if (s) {
+  //       if (Array.isArray(s.lines)) setLines(s.lines);
+  //       if (Array.isArray(s.history)) setHistory(s.history);
+  //       if (typeof s.input === "string") setInput(s.input);
+  //     }
+  //   }, []); // run once
 
-    // --- Persist changes (debounced to avoid thrash) ---
-    useEffect(() => {
-      const id = setTimeout(() => {
-        saveState({ lines, history, input });
-      }, 80);
-      return () => clearTimeout(id);
-    }, [lines, history, input]);
+  //   // --- Persist changes (debounced to avoid thrash) ---
+  //   useEffect(() => {
+  //     const id = setTimeout(() => {
+  //       saveState({ lines, history, input });
+  //     }, 80);
+  //     return () => clearTimeout(id);
+  //   }, [lines, history, input]);
 
-    // Also persist on tab close / visibility changes
-    useEffect(() => {
-      const h = () => saveState({ lines, history, input });
-      window.addEventListener("beforeunload", h);
-      document.addEventListener("visibilitychange", h);
-      return () => {
-        window.removeEventListener("beforeunload", h);
-        document.removeEventListener("visibilitychange", h);
-      };
-    }, [lines, history, input]);
+  //   // Also persist on tab close / visibility changes
+  //   useEffect(() => {
+  //     const h = () => saveState({ lines, history, input });
+  //     window.addEventListener("beforeunload", h);
+  //     document.addEventListener("visibilitychange", h);
+  //     return () => {
+  //       window.removeEventListener("beforeunload", h);
+  //       document.removeEventListener("visibilitychange", h);
+  //     };
+  //   }, [lines, history, input]);
 
-    // --- Scroll to bottom on new lines ---
-    useEffect(() => {
-      const el = viewRef.current;
-      if (!el) return;
-      const raf = requestAnimationFrame(() => {
-        el.scrollTop = el.scrollHeight;
-      });
-      return () => cancelAnimationFrame(raf);
-    }, [lines]);
+  //   // --- Scroll to bottom on new lines ---
+  //   useEffect(() => {
+  //     const el = viewRef.current;
+  //     if (!el) return;
+  //     const raf = requestAnimationFrame(() => {
+  //       el.scrollTop = el.scrollHeight;
+  //     });
+  //     return () => cancelAnimationFrame(raf);
+  //   }, [lines]);
 
-    // --- Focus once when visible ---
-    useEffect(() => {
-      const el = viewRef.current;
-      if (!el || didFocusRef.current) return;
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            didFocusRef.current = true;
-            inputRef.current?.focus();
-            io.disconnect();
-          }
-        },
-        { root: null, rootMargin: "-10% 0px -80% 0px", threshold: 0.1 }
-      );
-      io.observe(el);
-      return () => io.disconnect();
-    }, []);
+  //   // --- Focus once when visible ---
+  //   useEffect(() => {
+  //     const el = viewRef.current;
+  //     if (!el || didFocusRef.current) return;
+  //     const io = new IntersectionObserver(
+  //       (entries) => {
+  //         if (entries.some((e) => e.isIntersecting)) {
+  //           didFocusRef.current = true;
+  //           inputRef.current?.focus();
+  //           io.disconnect();
+  //         }
+  //       },
+  //       { root: null, rootMargin: "-10% 0px -80% 0px", threshold: 0.1 }
+  //     );
+  //     io.observe(el);
+  //     return () => io.disconnect();
+  //   }, []);
 
-    // --- Helpers ---
-    const prompt = (
-      <span className="select-none">
-        <span className="text-emerald-400">jp</span>
-        <span className="text-gray-400">@</span>
-        <span className="text-sky-400">portfolio</span>
-        <span className="text-gray-500"> ~ </span>
-        <span className="text-gray-300">$</span>
-      </span>
-    );
+  //   // --- Helpers ---
+  //   const prompt = (
+  //     <span className="select-none">
+  //       <span className="text-emerald-400">jp</span>
+  //       <span className="text-gray-400">@</span>
+  //       <span className="text-sky-400">portfolio</span>
+  //       <span className="text-gray-500"> ~ </span>
+  //       <span className="text-gray-300">$</span>
+  //     </span>
+  //   );
 
-    const println = (...outs) =>
-      setLines((prev) => [
-        ...prev,
-        ...outs.map((t) => ({ type: "out", text: t })),
-      ]);
-    const printlnList = (arr) => arr.forEach((t) => println(t));
+  //   const println = (...outs) =>
+  //     setLines((prev) => [
+  //       ...prev,
+  //       ...outs.map((t) => ({ type: "out", text: t })),
+  //     ]);
+  //   const printlnList = (arr) => arr.forEach((t) => println(t));
 
-    const openUrl = (url) => {
-      try {
-        window.open(url, "_blank", "noopener,noreferrer");
-      } catch {}
-    };
+  //   const openUrl = (url) => {
+  //     try {
+  //       window.open(url, "_blank", "noopener,noreferrer");
+  //     } catch {}
+  //   };
 
-    const setTheme = (modeOrToggle) => {
-      const root = document.documentElement;
-      if (!modeOrToggle || modeOrToggle === "toggle") {
-        const next = !root.classList.contains("dark");
-        root.classList.toggle("dark", next);
-        localStorage.setItem("theme", next ? "dark" : "light");
-        println(`theme: ${next ? "dark" : "light"}`);
-        return;
-      }
-      if (modeOrToggle === "dark" || modeOrToggle === "light") {
-        const next = modeOrToggle === "dark";
-        root.classList.toggle("dark", next);
-        localStorage.setItem("theme", modeOrToggle);
-        println(`theme: ${modeOrToggle}`);
-        return;
-      }
-      println("Usage: theme [light|dark|toggle]");
-    };
+  //   const setTheme = (modeOrToggle) => {
+  //     const root = document.documentElement;
+  //     if (!modeOrToggle || modeOrToggle === "toggle") {
+  //       const next = !root.classList.contains("dark");
+  //       root.classList.toggle("dark", next);
+  //       localStorage.setItem("theme", next ? "dark" : "light");
+  //       println(`theme: ${next ? "dark" : "light"}`);
+  //       return;
+  //     }
+  //     if (modeOrToggle === "dark" || modeOrToggle === "light") {
+  //       const next = modeOrToggle === "dark";
+  //       root.classList.toggle("dark", next);
+  //       localStorage.setItem("theme", modeOrToggle);
+  //       println(`theme: ${modeOrToggle}`);
+  //       return;
+  //     }
+  //     println("Usage: theme [light|dark|toggle]");
+  //   };
 
-    const gotoSection = (idLike) => {
-      if (!idLike) return println("Usage: goto <section>");
-      const id = sectionIds.find((s) =>
-        s.toLowerCase().includes(idLike.toLowerCase())
-      );
-      if (!id) return println(`No section matches '${idLike}'.`);
-      const el = document.getElementById(id);
-      if (!el) return println(`Section '${id}' not found.`);
-      el.scrollIntoView({ behavior: "smooth" });
-    };
+  //   const gotoSection = (idLike) => {
+  //     if (!idLike) return println("Usage: goto <section>");
+  //     const id = sectionIds.find((s) =>
+  //       s.toLowerCase().includes(idLike.toLowerCase())
+  //     );
+  //     if (!id) return println(`No section matches '${idLike}'.`);
+  //     const el = document.getElementById(id);
+  //     if (!el) return println(`Section '${id}' not found.`);
+  //     el.scrollIntoView({ behavior: "smooth" });
+  //   };
 
-    // --- Command handler ---
-    const handleCommand = (raw) => {
-      const command = raw.trim();
-      if (!command) return;
+  //   // --- Command handler ---
+  //   const handleCommand = (raw) => {
+  //     const command = raw.trim();
+  //     if (!command) return;
 
-      setLines((prev) => [...prev, { type: "in", text: command }]);
-      setHistory((h) => [command, ...h]);
-      setHistIdx(-1);
-      setInput("");
+  //     setLines((prev) => [...prev, { type: "in", text: command }]);
+  //     setHistory((h) => [command, ...h]);
+  //     setHistIdx(-1);
+  //     setInput("");
 
-      const [name, ...rest] = command.split(" ");
-      const argStr = rest.join(" ").trim();
+  //     const [name, ...rest] = command.split(" ");
+  //     const argStr = rest.join(" ").trim();
 
-      switch (name) {
-        case "help":
-          printlnList([
-            "Available commands:",
-            "  help                      Show this help",
-            "  clear                     Clear the terminal",
-            "  ls                        List files",
-            "  cat <file>                Show (skills.txt | projects.txt | experience.txt | education.txt | social.md | resume.pdf)",
-            "  projects [term]           List projects (filter by term)",
-            "  skills                    List skills",
-            "  experience                List roles",
-            "  education                 List schools",
-            "  whoami                    About me",
-            "  echo <text>               Print text",
-            "  open <url>                Open a link",
-            "  resume                    Open resume",
-            "  contact                   Show email",
-            "  social                    Show social links",
-            "  theme [light|dark|toggle] Switch theme",
-            "  time                      Current time",
-            "  goto <section>            Scroll to a section (e.g. 'about')",
-          ]);
-          break;
+  //     switch (name) {
+  //       case "help":
+  //         printlnList([
+  //           "Available commands:",
+  //           "  help                      Show this help",
+  //           "  clear                     Clear the terminal",
+  //           "  ls                        List files",
+  //           "  cat <file>                Show (skills.txt | projects.txt | experience.txt | education.txt | social.md | resume.pdf)",
+  //           "  projects [term]           List projects (filter by term)",
+  //           "  skills                    List skills",
+  //           "  experience                List roles",
+  //           "  education                 List schools",
+  //           "  whoami                    About me",
+  //           "  echo <text>               Print text",
+  //           "  open <url>                Open a link",
+  //           "  resume                    Open resume",
+  //           "  contact                   Show email",
+  //           "  social                    Show social links",
+  //           "  theme [light|dark|toggle] Switch theme",
+  //           "  time                      Current time",
+  //           "  goto <section>            Scroll to a section (e.g. 'about')",
+  //         ]);
+  //         break;
 
-        case "clear":
-          setLines([]);
-          break;
+  //       case "clear":
+  //         setLines([]);
+  //         break;
 
-        case "ls":
-          println(
-            "skills.txt  projects.txt  experience.txt  education.txt  social.md  resume.pdf"
-          );
-          break;
+  //       case "ls":
+  //         println(
+  //           "skills.txt  projects.txt  experience.txt  education.txt  social.md  resume.pdf"
+  //         );
+  //         break;
 
-        case "cat": {
-          const file = argStr.toLowerCase();
-          if (!file) return println("cat: missing file");
-          if (file === "skills.txt") {
-            skills.forEach((s) => println(`- ${s.category}: ${s.details}`));
-          } else if (file === "projects.txt") {
-            projects.forEach((p, i) =>
-              println(`${i + 1}. ${p.title} (${p.stack || "—"})`)
-            );
-          } else if (file === "experience.txt") {
-            experience.forEach((e) =>
-              println(`${e.role} @ ${e.company} — ${e.period}`)
-            );
-          } else if (file === "education.txt") {
-            education.forEach((ed) =>
-              println(`${ed.institution} — ${ed.degree} (${ed.year})`)
-            );
-          } else if (file === "social.md") {
-            println("GitHub:   https://github.com/JAYDIPSINH27");
-            println(
-              "LinkedIn: https://www.linkedin.com/in/jaydipsinh-padhiyar/"
-            );
-            println("Twitter:  https://twitter.com/jpsinh27");
-            println("Email:    mailto:jaydipadhiyar27@gmail.com");
-          } else if (file === "resume.pdf") {
-            println("Use: resume  (opens in new tab)");
-          } else {
-            println(`cat: ${file}: No such file`);
-          }
-          break;
-        }
+  //       case "cat": {
+  //         const file = argStr.toLowerCase();
+  //         if (!file) return println("cat: missing file");
+  //         if (file === "skills.txt") {
+  //           skills.forEach((s) => println(`- ${s.category}: ${s.details}`));
+  //         } else if (file === "projects.txt") {
+  //           projects.forEach((p, i) =>
+  //             println(`${i + 1}. ${p.title} (${p.stack || "—"})`)
+  //           );
+  //         } else if (file === "experience.txt") {
+  //           experience.forEach((e) =>
+  //             println(`${e.role} @ ${e.company} — ${e.period}`)
+  //           );
+  //         } else if (file === "education.txt") {
+  //           education.forEach((ed) =>
+  //             println(`${ed.institution} — ${ed.degree} (${ed.year})`)
+  //           );
+  //         } else if (file === "social.md") {
+  //           println("GitHub:   https://github.com/JAYDIPSINH27");
+  //           println(
+  //             "LinkedIn: https://www.linkedin.com/in/jaydipsinh-padhiyar/"
+  //           );
+  //           println("Twitter:  https://twitter.com/jpsinh27");
+  //           println("Email:    mailto:jaydipadhiyar27@gmail.com");
+  //         } else if (file === "resume.pdf") {
+  //           println("Use: resume  (opens in new tab)");
+  //         } else {
+  //           println(`cat: ${file}: No such file`);
+  //         }
+  //         break;
+  //       }
 
-        case "projects": {
-          const q = argStr.toLowerCase();
-          const list = projects
-            .filter(
-              (p) =>
-                !q ||
-                p.title.toLowerCase().includes(q) ||
-                (p.stack || "").toLowerCase().includes(q) ||
-                (p.details || []).some((d) => d.toLowerCase().includes(q))
-            )
-            .slice(0, 12);
-          if (!list.length) return println("No matching projects.");
-          list.forEach((p, i) => {
-            println(`${i + 1}. ${p.title} — ${p.stack || "—"}`);
-            if (p.githubLink) println(`    repo: ${p.githubLink}`);
-          });
-          println("Tip: use open <url> to open a repo.");
-          break;
-        }
+  //       case "projects": {
+  //         const q = argStr.toLowerCase();
+  //         const list = projects
+  //           .filter(
+  //             (p) =>
+  //               !q ||
+  //               p.title.toLowerCase().includes(q) ||
+  //               (p.stack || "").toLowerCase().includes(q) ||
+  //               (p.details || []).some((d) => d.toLowerCase().includes(q))
+  //           )
+  //           .slice(0, 12);
+  //         if (!list.length) return println("No matching projects.");
+  //         list.forEach((p, i) => {
+  //           println(`${i + 1}. ${p.title} — ${p.stack || "—"}`);
+  //           if (p.githubLink) println(`    repo: ${p.githubLink}`);
+  //         });
+  //         println("Tip: use open <url> to open a repo.");
+  //         break;
+  //       }
 
-        case "skills":
-          skills.forEach((s) => println(`- ${s.category}: ${s.details}`));
-          break;
+  //       case "skills":
+  //         skills.forEach((s) => println(`- ${s.category}: ${s.details}`));
+  //         break;
 
-        case "experience":
-          experience.forEach((e) =>
-            println(`${e.role} @ ${e.company} — ${e.period}`)
-          );
-          break;
+  //       case "experience":
+  //         experience.forEach((e) =>
+  //           println(`${e.role} @ ${e.company} — ${e.period}`)
+  //         );
+  //         break;
 
-        case "education":
-          education.forEach((ed) =>
-            println(`${ed.institution} — ${ed.degree} (${ed.year})`)
-          );
-          break;
+  //       case "education":
+  //         education.forEach((ed) =>
+  //           println(`${ed.institution} — ${ed.degree} (${ed.year})`)
+  //         );
+  //         break;
 
-        case "whoami":
-          println("Jaydipsinh Padhiyar — Full-Stack Developer");
-          break;
+  //       case "whoami":
+  //         println("Jaydipsinh Padhiyar — Full-Stack Developer");
+  //         break;
 
-        case "echo":
-          println(argStr);
-          break;
+  //       case "echo":
+  //         println(argStr);
+  //         break;
 
-        case "open":
-          if (!argStr) println("Usage: open <url>");
-          else
-            openUrl(argStr.startsWith("http") ? argStr : `https://${argStr}`);
-          break;
+  //       case "open":
+  //         if (!argStr) println("Usage: open <url>");
+  //         else
+  //           openUrl(argStr.startsWith("http") ? argStr : `https://${argStr}`);
+  //         break;
 
-        case "resume":
-          println("Opening resume...");
-          openUrl(resumeUrl);
-          break;
+  //       case "resume":
+  //         println("Opening resume...");
+  //         openUrl(resumeUrl);
+  //         break;
 
-        case "contact":
-          println("Email: jaydipadhiyar27@gmail.com");
-          break;
+  //       case "contact":
+  //         println("Email: jaydipadhiyar27@gmail.com");
+  //         break;
 
-        case "social":
-          println("GitHub   https://github.com/JAYDIPSINH27");
-          println("LinkedIn https://www.linkedin.com/in/jaydipsinh-padhiyar/");
-          println("Twitter  https://twitter.com/jpsinh27");
-          break;
+  //       case "social":
+  //         println("GitHub   https://github.com/JAYDIPSINH27");
+  //         println("LinkedIn https://www.linkedin.com/in/jaydipsinh-padhiyar/");
+  //         println("Twitter  https://twitter.com/jpsinh27");
+  //         break;
 
-        case "theme":
-          setTheme(argStr || "toggle");
-          break;
+  //       case "theme":
+  //         setTheme(argStr || "toggle");
+  //         break;
 
-        case "time":
-          println(new Date().toString());
-          break;
+  //       case "time":
+  //         println(new Date().toString());
+  //         break;
 
-        case "goto":
-          gotoSection(argStr);
-          break;
+  //       case "goto":
+  //         gotoSection(argStr);
+  //         break;
 
-        default:
-          println(`command not found: ${name}. Try 'help'.`);
-      }
-    };
+  //       default:
+  //         println(`command not found: ${name}. Try 'help'.`);
+  //     }
+  //   };
 
-    // --- Tab autocomplete ---
-    const onTabComplete = () => {
-      const tokens = input.trim().split(/\s+/);
-      if (!tokens.length || input === "") return;
+  //   // --- Tab autocomplete ---
+  //   const onTabComplete = () => {
+  //     const tokens = input.trim().split(/\s+/);
+  //     if (!tokens.length || input === "") return;
 
-      if (tokens.length === 1) {
-        const prefix = tokens[0];
-        const match = knownCommands.find((c) => c.startsWith(prefix));
-        if (match) setInput(match + (input.endsWith(" ") ? "" : " "));
-        return;
-      }
-      if (tokens[0] === "cat") {
-        const partial = tokens[1] || "";
-        const match = fileNames.find((f) =>
-          f.startsWith(partial.toLowerCase())
-        );
-        if (match) {
-          const rest = tokens.slice(2).join(" ");
-          setInput(`cat ${match}${rest ? " " + rest : ""}`);
-        }
-      }
-    };
+  //     if (tokens.length === 1) {
+  //       const prefix = tokens[0];
+  //       const match = knownCommands.find((c) => c.startsWith(prefix));
+  //       if (match) setInput(match + (input.endsWith(" ") ? "" : " "));
+  //       return;
+  //     }
+  //     if (tokens[0] === "cat") {
+  //       const partial = tokens[1] || "";
+  //       const match = fileNames.find((f) =>
+  //         f.startsWith(partial.toLowerCase())
+  //       );
+  //       if (match) {
+  //         const rest = tokens.slice(2).join(" ");
+  //         setInput(`cat ${match}${rest ? " " + rest : ""}`);
+  //       }
+  //     }
+  //   };
 
-    // --- Keyboard handling ---
-    const onKeyDown = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleCommand(input);
-        return;
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
-        e.preventDefault();
-        setLines([]);
-        return;
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "c") {
-        setLines((p) => [...p, { type: "out", text: "^C" }]);
-        setInput("");
-        return;
-      }
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setHistIdx((idx) => {
-          const next = Math.min(idx + 1, history.length - 1);
-          setInput(history[next] ?? "");
-          return next;
-        });
-        return;
-      }
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setHistIdx((idx) => {
-          const next = Math.max(idx - 1, -1);
-          setInput(next === -1 ? "" : history[next]);
-          return next;
-        });
-        return;
-      }
-      if (e.key === "Tab") {
-        e.preventDefault();
-        onTabComplete();
-      }
-    };
+  //   // --- Keyboard handling ---
+  //   const onKeyDown = (e) => {
+  //     if (e.key === "Enter") {
+  //       e.preventDefault();
+  //       handleCommand(input);
+  //       return;
+  //     }
+  //     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
+  //       e.preventDefault();
+  //       setLines([]);
+  //       return;
+  //     }
+  //     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "c") {
+  //       setLines((p) => [...p, { type: "out", text: "^C" }]);
+  //       setInput("");
+  //       return;
+  //     }
+  //     if (e.key === "ArrowUp") {
+  //       e.preventDefault();
+  //       setHistIdx((idx) => {
+  //         const next = Math.min(idx + 1, history.length - 1);
+  //         setInput(history[next] ?? "");
+  //         return next;
+  //       });
+  //       return;
+  //     }
+  //     if (e.key === "ArrowDown") {
+  //       e.preventDefault();
+  //       setHistIdx((idx) => {
+  //         const next = Math.max(idx - 1, -1);
+  //         setInput(next === -1 ? "" : history[next]);
+  //         return next;
+  //       });
+  //       return;
+  //     }
+  //     if (e.key === "Tab") {
+  //       e.preventDefault();
+  //       onTabComplete();
+  //     }
+  //   };
 
-    // --- UI ---
-    return (
-      <div className="px-5 sm:px-6 py-5">
-        <div
-          ref={viewRef}
-          onClick={() => inputRef.current?.focus()}
-          role="log"
-          aria-live="polite"
-          className="font-mono text-[13px] md:text-[14px] leading-relaxed text-green-500 dark:text-green-400
-                   bg-gray-950/90 dark:bg-gray-950/90 rounded-2xl border border-gray-800/70
-                   h-72 sm:h-64 md:h-72 lg:h-80 overflow-auto p-4 cursor-text"
-        >
-          {lines.map((line, i) => (
-            <div key={i} className="whitespace-pre-wrap break-words">
-              {line.type === "in" ? (
-                <span className="text-gray-400">
-                  {prompt} <span className="text-green-300">{line.text}</span>
-                </span>
-              ) : (
-                <span>{line.text}</span>
-              )}
-            </div>
-          ))}
+  //   // --- UI ---
+  //   return (
+  //     <div className="px-5 sm:px-6 py-5">
+  //       <div
+  //         ref={viewRef}
+  //         onClick={() => inputRef.current?.focus()}
+  //         role="log"
+  //         aria-live="polite"
+  //         className="font-mono text-[13px] md:text-[14px] leading-relaxed text-green-500 dark:text-green-400
+  //                  bg-gray-950/90 dark:bg-gray-950/90 rounded-2xl border border-gray-800/70
+  //                  h-72 sm:h-64 md:h-72 lg:h-80 overflow-auto p-4 cursor-text"
+  //       >
+  //         {lines.map((line, i) => (
+  //           <div key={i} className="whitespace-pre-wrap break-words">
+  //             {line.type === "in" ? (
+  //               <span className="text-gray-400">
+  //                 {prompt} <span className="text-green-300">{line.text}</span>
+  //               </span>
+  //             ) : (
+  //               <span>{line.text}</span>
+  //             )}
+  //           </div>
+  //         ))}
 
-          {/* Prompt row */}
-          <div className="flex items-baseline gap-2 mt-0.5">
-            <span className="text-gray-400">{prompt}</span>
-            <input
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={onKeyDown}
-              className="flex-1 bg-transparent outline-none border-none text-green-300 placeholder:text-green-800/60"
-              placeholder="type a command… (try: help)"
-              aria-label="Terminal input"
-              autoCorrect="off"
-              autoCapitalize="none"
-              spellCheck={false}
-            />
-            {!input && (
-              <span className="inline-block w-2 h-4 bg-green-400 animate-pulse opacity-80 rounded-sm" />
-            )}
-          </div>
-        </div>
+  //         {/* Prompt row */}
+  //         <div className="flex items-baseline gap-2 mt-0.5">
+  //           <span className="text-gray-400">{prompt}</span>
+  //           <input
+  //             ref={inputRef}
+  //             value={input}
+  //             onChange={(e) => setInput(e.target.value)}
+  //             onKeyDown={onKeyDown}
+  //             className="flex-1 bg-transparent outline-none border-none text-green-300 placeholder:text-green-800/60"
+  //             placeholder="type a command… (try: help)"
+  //             aria-label="Terminal input"
+  //             autoCorrect="off"
+  //             autoCapitalize="none"
+  //             spellCheck={false}
+  //           />
+  //           {!input && (
+  //             <span className="inline-block w-2 h-4 bg-green-400 animate-pulse opacity-80 rounded-sm" />
+  //           )}
+  //         </div>
+  //       </div>
 
-        <p className="mt-2 text-[11px] text-gray-500 dark:text-gray-400">
-          Tips:{" "}
-          <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
-            Tab
-          </kbd>{" "}
-          autocomplete ·{" "}
-          <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
-            ↑
-          </kbd>
-          /
-          <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
-            ↓
-          </kbd>{" "}
-          history ·{" "}
-          <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
-            Ctrl
-          </kbd>
-          +
-          <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
-            L
-          </kbd>{" "}
-          clear
-        </p>
-      </div>
-    );
-  }
+  //       <p className="mt-2 text-[11px] text-gray-500 dark:text-gray-400">
+  //         Tips:{" "}
+  //         <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
+  //           Tab
+  //         </kbd>{" "}
+  //         autocomplete ·{" "}
+  //         <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
+  //           ↑
+  //         </kbd>
+  //         /
+  //         <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
+  //           ↓
+  //         </kbd>{" "}
+  //         history ·{" "}
+  //         <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
+  //           Ctrl
+  //         </kbd>
+  //         +
+  //         <kbd className="px-1 py-0.5 rounded bg-gray-200 dark:bg-gray-800">
+  //           L
+  //         </kbd>{" "}
+  //         clear
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div
@@ -1024,22 +1026,22 @@ export default function Home() {
 
                 {/* Interactive terminal */}
                 <InteractiveTerminal
-                  projects={projectsData}
-                  skills={skillsData.skills}
-                  experience={experienceData}
-                  education={educationData}
-                  resumeUrl="/Jaydipsinh_Padhiyar.pdf"
-                  sectionIds={[
-                    "hero",
-                    "stats",
-                    "about",
-                    "skills",
-                    "education",
-                    "experience",
-                    "projects",
-                    "testimonials",
-                  ]}
-                />
+  projects={projectsData}
+  skills={skillsData.skills}
+  experience={experienceData}
+  education={educationData}
+  resumeUrl="/Jaydipsinh_Padhiyar.pdf"
+  sectionIds={[
+    "hero",
+    "about",
+    "explanations",
+    "skills",
+    "education",
+    "experience",
+    "projects",
+    "testimonials",
+  ]}
+/>
 
                 {/* CTAs + Socials */}
                 <div className="px-5 sm:px-6 pb-6">
@@ -1058,7 +1060,7 @@ export default function Home() {
 
                     <motion.a
                       whileHover={{ scale: 1.03 }}
-                      href="https://drive.google.com/file/d/1Qnkz8tM8R5gZ7tKlJO0h-Y0x2q1nns1x/view?usp=sharing"
+                      href="/Jaydipsinh_Padhiyar.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-white rounded-full shadow-lg hover:bg-gray-800 transition dark:bg-gray-800 dark:hover:bg-gray-700"
