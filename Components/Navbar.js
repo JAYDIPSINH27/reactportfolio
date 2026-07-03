@@ -21,9 +21,10 @@ const Navbar = () => {
   const sections = useMemo(
     () => [
       "hero",
-          "explanations",
+          
       // "stats",
       "about",
+      "explanations",
       "skills",
       "education",
       "experience",
