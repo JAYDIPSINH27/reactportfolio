@@ -711,7 +711,7 @@ const Navbar = () => {
                         `
                         : `
                           text-slate-900
-                          dark:text-white
+                          dark:shadow-black/50
 
                           hover:bg-slate-100
                           dark:hover:bg-white/5
