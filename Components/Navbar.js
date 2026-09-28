@@ -1,17 +1,21 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaSun,
+  FaMoon,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
-
-  const mobileMenuRef = useRef(null);
 
   const sections = useMemo(
     () => [
@@ -27,54 +31,52 @@ const Navbar = () => {
     []
   );
 
-  /* -------------------------------------------------------
+  /* =========================================================
      THEME
-  ------------------------------------------------------- */
+  ========================================================= */
 
   useEffect(() => {
-    setMounted(true);
-
     const root = document.documentElement;
 
-    const storedTheme = localStorage.getItem("theme");
-    const legacyDarkMode = localStorage.getItem("darkMode");
+    const savedTheme = localStorage.getItem("theme");
 
-    const prefersDark = window.matchMedia(
+    const systemDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
 
-    let isDark;
+    const shouldBeDark =
+      savedTheme === "dark" ||
+      (!savedTheme && systemDark);
 
-    if (storedTheme) {
-      isDark = storedTheme === "dark";
-    } else if (legacyDarkMode !== null) {
-      isDark = legacyDarkMode === "true";
-    } else {
-      isDark = prefersDark;
-    }
+    root.classList.toggle("dark", shouldBeDark);
 
-    setDarkMode(isDark);
-    root.classList.toggle("dark", isDark);
+    setDarkMode(shouldBeDark);
+    setMounted(true);
   }, []);
 
-  const toggleDarkMode = () => {
-    const nextTheme = !darkMode;
+  const toggleTheme = () => {
+    const nextDarkMode = !darkMode;
 
-    setDarkMode(nextTheme);
+    setDarkMode(nextDarkMode);
 
-    document.documentElement.classList.toggle("dark", nextTheme);
+    const root = document.documentElement;
 
-    localStorage.setItem("theme", nextTheme ? "dark" : "light");
-    localStorage.setItem("darkMode", String(nextTheme));
+    if (nextDarkMode) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
   };
 
-  /* -------------------------------------------------------
-     NAVBAR SCROLL STATE
-  ------------------------------------------------------- */
+  /* =========================================================
+     SCROLL STATE
+  ========================================================= */
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 20);
     };
 
     handleScroll();
@@ -88,30 +90,27 @@ const Navbar = () => {
     };
   }, []);
 
-  /* -------------------------------------------------------
+  /* =========================================================
      SCROLLSPY
-  ------------------------------------------------------- */
+  ========================================================= */
 
   useEffect(() => {
     const handleScrollSpy = () => {
-      let currentSection = "hero";
+      const scrollPosition = window.scrollY + 140;
 
-      // Navbar height + a little breathing room
-      const triggerPoint = 100;
+      let current = "hero";
 
       for (const id of sections) {
         const element = document.getElementById(id);
 
         if (!element) continue;
 
-        const rect = element.getBoundingClientRect();
-
-        if (rect.top <= triggerPoint) {
-          currentSection = id;
+        if (element.offsetTop <= scrollPosition) {
+          current = id;
         }
       }
 
-      setActiveSection(currentSection);
+      setActiveSection(current);
     };
 
     handleScrollSpy();
@@ -125,43 +124,9 @@ const Navbar = () => {
     };
   }, [sections]);
 
-  /* -------------------------------------------------------
-     LOCK PAGE SCROLL WHEN MOBILE MENU IS OPEN
-  ------------------------------------------------------- */
-
-  useEffect(() => {
-    if (!mobileOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [mobileOpen]);
-
-  /* -------------------------------------------------------
-     CLOSE MOBILE MENU WITH ESC
-  ------------------------------------------------------- */
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setMobileOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
-  /* -------------------------------------------------------
-     CLOSE MOBILE MENU WHEN SCREEN BECOMES DESKTOP
-  ------------------------------------------------------- */
+  /* =========================================================
+     CLOSE MOBILE MENU ON DESKTOP
+  ========================================================= */
 
   useEffect(() => {
     const handleResize = () => {
@@ -177,36 +142,55 @@ const Navbar = () => {
     };
   }, []);
 
-  /* -------------------------------------------------------
-     NAVIGATION
-  ------------------------------------------------------- */
+  /* =========================================================
+     CLOSE WITH ESC
+  ========================================================= */
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  /* =========================================================
+     SECTION NAVIGATION
+  ========================================================= */
 
   const goTo = (id) => {
     setMobileOpen(false);
 
     const element = document.getElementById(id);
 
-    if (element) {
-      const navbarHeight = window.innerWidth >= 768 ? 64 : 56;
-
-      const elementPosition =
-        element.getBoundingClientRect().top + window.scrollY;
-
-      const offsetPosition = elementPosition - navbarHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-
-      // Update URL without forcing navigation
-      window.history.replaceState(null, "", `#${id}`);
-    } else {
+    if (!element) {
       window.location.href = `/#${id}`;
+      return;
     }
+
+    const navbarHeight = window.innerWidth >= 768 ? 64 : 56;
+
+    const top =
+      element.getBoundingClientRect().top +
+      window.scrollY -
+      navbarHeight -
+      12;
+
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
+
+    window.history.replaceState(null, "", `#${id}`);
   };
 
-  const handleBrandClick = (event) => {
+  const handleHomeClick = (event) => {
     const hero = document.getElementById("hero");
 
     if (!hero) return;
@@ -223,48 +207,61 @@ const Navbar = () => {
     window.history.replaceState(null, "", "/");
   };
 
-  /* -------------------------------------------------------
+  /* =========================================================
      THEME BUTTON
-  ------------------------------------------------------- */
+  ========================================================= */
 
-  const ThemeButton = ({ mobile = false }) => {
+  const ThemeButton = () => {
     if (!mounted) {
-      return (
-        <div
-          className={`${
-            mobile ? "h-10 w-10" : "h-9 w-9"
-          } rounded-full`}
-          aria-hidden="true"
-        />
-      );
+      return <div className="h-10 w-10" />;
     }
 
     return (
       <button
         type="button"
-        onClick={toggleDarkMode}
+        onClick={toggleTheme}
         aria-label={
           darkMode ? "Switch to light mode" : "Switch to dark mode"
         }
         title={
           darkMode ? "Switch to light mode" : "Switch to dark mode"
         }
-        className={`
-          flex items-center justify-center
+        className="
+          group
+          relative
+
+          flex
+          h-10
+          w-10
+          shrink-0
+          items-center
+          justify-center
+
           rounded-full
-          border border-gray-200 dark:border-gray-700
-          bg-gray-50 dark:bg-gray-800
-          text-gray-700 dark:text-gray-200
-          transition-all duration-200
-          hover:bg-gray-100 dark:hover:bg-gray-700
+
+          border
+          border-black/10
+          dark:border-white/10
+
+          bg-white/70
+          dark:bg-white/10
+
+          text-slate-800
+          dark:text-slate-100
+
+          backdrop-blur-md
+
+          transition-all
+          duration-200
+
           hover:scale-105
+          hover:bg-white
+          dark:hover:bg-white/15
+
           focus:outline-none
           focus-visible:ring-2
           focus-visible:ring-orange-500
-          focus-visible:ring-offset-2
-          dark:focus-visible:ring-offset-slate-900
-          ${mobile ? "h-10 w-10" : "h-9 w-9"}
-        `}
+        "
       >
         {darkMode ? (
           <FaSun className="h-4 w-4 text-amber-400" />
@@ -277,53 +274,61 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ===================================================
-          NAVBAR
-      =================================================== */}
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
 
       <header
         className={`
           fixed
-          top-0
           inset-x-0
+          top-0
           z-50
 
-          bg-white/95
-          dark:bg-slate-950/95
-
-          backdrop-blur-xl
           transition-all
           duration-300
+          ease-out
 
           ${
             scrolled
               ? `
+                bg-white/85
+                dark:bg-slate-950/85
+
+                backdrop-blur-xl
+                backdrop-saturate-150
+
                 border-b
-                border-gray-200/80
-                dark:border-gray-800
+                border-black/5
+                dark:border-white/10
+
                 shadow-sm
+                dark:shadow-black/30
               `
               : `
+                bg-white/55
+                dark:bg-slate-950/55
+
+                backdrop-blur-lg
+
                 border-b
-                border-gray-200/50
-                dark:border-gray-800/50
+                border-transparent
               `
           }
         `}
-        role="banner"
       >
         <nav
           className="
             mx-auto
             max-w-7xl
             px-4
-            sm:px-5
-            md:px-6
+            sm:px-6
+            lg:px-8
           "
           aria-label="Main navigation"
         >
           {/* =================================================
-              MAIN NAVBAR ROW
+              NAVBAR ROW
           ================================================= */}
 
           <div
@@ -335,24 +340,31 @@ const Navbar = () => {
               justify-between
             "
           >
-            {/* BRAND */}
+            {/* =================================================
+                LOGO / NAME
+            ================================================= */}
 
             <Link
               href="/"
-              onClick={handleBrandClick}
+              onClick={handleHomeClick}
+              aria-label="Go to homepage"
               className="
+                relative
+                z-10
+
                 shrink-0
 
                 text-lg
                 md:text-xl
 
-                font-semibold
+                font-bold
                 tracking-tight
 
                 text-orange-500
                 dark:text-orange-400
 
                 transition-colors
+                duration-200
 
                 hover:text-orange-600
                 dark:hover:text-orange-300
@@ -360,19 +372,22 @@ const Navbar = () => {
                 focus:outline-none
                 focus-visible:ring-2
                 focus-visible:ring-orange-500
-                rounded
+                focus-visible:ring-offset-2
+
+                rounded-md
               "
-              aria-label="Jaydipsinh Padhiyar - Home"
             >
               Jaydipsinh Padhiyar
             </Link>
 
             {/* =================================================
-                DESKTOP NAVIGATION
+                DESKTOP
             ================================================= */}
 
-            <div className="hidden md:flex items-center gap-5 lg:gap-6">
-              <div className="flex items-center gap-4 lg:gap-5">
+            <div className="hidden md:flex items-center gap-3 lg:gap-5">
+              {/* NAV LINKS */}
+
+              <div className="flex items-center gap-1 lg:gap-2">
                 {sections.slice(1).map((id) => {
                   const active = activeSection === id;
 
@@ -384,62 +399,72 @@ const Navbar = () => {
                       aria-current={active ? "page" : undefined}
                       className={`
                         relative
+
+                        rounded-lg
+
+                        px-2
+                        lg:px-3
                         py-2
 
                         text-xs
                         lg:text-sm
 
-                        uppercase
-                        tracking-wide
+                        font-medium
+                        capitalize
 
-                        transition-colors
+                        transition-all
                         duration-200
 
                         focus:outline-none
                         focus-visible:ring-2
                         focus-visible:ring-orange-500
-                        rounded
 
                         ${
                           active
                             ? `
                               text-orange-600
                               dark:text-orange-400
-                              font-semibold
+
+                              bg-orange-500/5
+                              dark:bg-orange-400/5
                             `
                             : `
-                              text-gray-600
-                              dark:text-gray-300
+                              text-slate-600
+                              dark:text-slate-300
 
-                              hover:text-orange-600
-                              dark:hover:text-orange-400
+                              hover:text-slate-950
+                              dark:hover:text-white
+
+                              hover:bg-black/5
+                              dark:hover:bg-white/5
                             `
                         }
                       `}
                     >
                       {id}
 
-                      {/* ACTIVE UNDERLINE */}
+                      {/* Active indicator */}
 
                       <span
                         className={`
                           absolute
-                          left-0
-                          right-0
-                          -bottom-0.5
-                          mx-auto
+                          bottom-0
+                          left-1/2
 
                           h-0.5
+
+                          -translate-x-1/2
+
                           rounded-full
 
                           bg-orange-500
 
                           transition-all
-                          duration-200
+                          duration-300
 
                           ${
                             active
-                              ? "w-full opacity-100"
+                              ? "w-5 opacity-100"
                               : "w-0 opacity-0"
                           }
                         `}
@@ -448,6 +473,18 @@ const Navbar = () => {
                   );
                 })}
               </div>
+
+              {/* Separator */}
+
+              <div
+                className="
+                  mx-1
+                  h-6
+                  w-px
+                  bg-black/10
+                  dark:bg-white/10
+                "
+              />
 
               {/* THEME */}
 
@@ -460,21 +497,21 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
+                  group
+
                   inline-flex
                   items-center
-                  justify-center
+                  gap-2
 
                   rounded-full
 
-                  bg-gradient-to-r
-                  from-orange-500
-                  to-amber-600
+                  bg-orange-500
 
-                  px-5
+                  px-4
                   py-2
 
                   text-sm
-                  font-medium
+                  font-semibold
                   text-white
 
                   shadow-sm
@@ -482,17 +519,35 @@ const Navbar = () => {
                   transition-all
                   duration-200
 
-                  hover:shadow-md
                   hover:-translate-y-0.5
+                  hover:bg-orange-600
+                  hover:shadow-md
+
+                  active:translate-y-0
 
                   focus:outline-none
                   focus-visible:ring-2
                   focus-visible:ring-orange-500
                   focus-visible:ring-offset-2
-                  dark:focus-visible:ring-offset-slate-900
+                  dark:focus-visible:ring-offset-slate-950
                 "
               >
                 Resume
+
+                <FaExternalLinkAlt
+                  className="
+                    h-2.5
+                    w-2.5
+
+                    opacity-70
+
+                    transition-transform
+                    duration-200
+
+                    group-hover:translate-x-0.5
+                    group-hover:-translate-y-0.5
+                  "
+                />
               </a>
             </div>
 
@@ -500,19 +555,19 @@ const Navbar = () => {
                 MOBILE CONTROLS
             ================================================= */}
 
-            <div className="flex md:hidden items-center gap-2">
-              <ThemeButton mobile />
+            <div className="flex md:hidden items-center gap-1">
+              <ThemeButton />
 
               <button
                 type="button"
-                onClick={() => setMobileOpen((previous) => !previous)}
+                onClick={() => setMobileOpen((prev) => !prev)}
                 aria-label={
                   mobileOpen
                     ? "Close navigation menu"
                     : "Open navigation menu"
                 }
                 aria-expanded={mobileOpen}
-                aria-controls="mobile-navigation"
+                aria-controls="mobile-menu"
                 className="
                   flex
                   h-10
@@ -522,14 +577,14 @@ const Navbar = () => {
 
                   rounded-full
 
-                  text-gray-800
-                  dark:text-gray-100
+                  text-slate-800
+                  dark:text-slate-100
 
                   transition-all
                   duration-200
 
-                  hover:bg-gray-100
-                  dark:hover:bg-gray-800
+                  hover:bg-black/5
+                  dark:hover:bg-white/10
 
                   focus:outline-none
                   focus-visible:ring-2
@@ -544,185 +599,225 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-
-          {/* =================================================
-              MOBILE DROPDOWN
-          ================================================= */}
-
-          <div
-            id="mobile-navigation"
-            ref={mobileMenuRef}
-            className={`
-              md:hidden
-
-              overflow-hidden
-
-              transition-all
-              duration-300
-              ease-in-out
-
-              ${
-                mobileOpen
-                  ? "max-h-[calc(100vh-56px)] opacity-100 pb-4"
-                  : "max-h-0 opacity-0"
-              }
-            `}
-          >
-            <div
-              className="
-                max-h-[calc(100vh-80px)]
-                overflow-y-auto
-
-                rounded-2xl
-
-                border
-                border-gray-200
-                dark:border-gray-800
-
-                bg-white
-                dark:bg-slate-900
-
-                p-2
-
-                shadow-xl
-                shadow-black/10
-
-                dark:shadow-black/30
-              "
-            >
-              {sections.slice(1).map((id) => {
-                const active = activeSection === id;
-
-                return (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => goTo(id)}
-                    aria-current={active ? "page" : undefined}
-                    className={`
-                      flex
-                      w-full
-                      items-center
-                      justify-between
-
-                      rounded-xl
-
-                      px-4
-                      py-3
-
-                      text-left
-                      text-sm
-                      capitalize
-
-                      transition-all
-                      duration-200
-
-                      ${
-                        active
-                          ? `
-                            bg-orange-50
-                            dark:bg-orange-500/10
-
-                            text-orange-600
-                            dark:text-orange-400
-
-                            font-semibold
-                          `
-                          : `
-                            text-gray-700
-                            dark:text-gray-200
-
-                            hover:bg-gray-50
-                            dark:hover:bg-gray-800
-                          `
-                      }
-                    `}
-                  >
-                    <span>{id}</span>
-
-                    {active && (
-                      <span
-                        className="
-                          h-2
-                          w-2
-                          rounded-full
-                          bg-orange-500
-                        "
-                      />
-                    )}
-                  </button>
-                );
-              })}
-
-              {/* DIVIDER */}
-
-              <div className="my-2 border-t border-gray-100 dark:border-gray-800" />
-
-              {/* MOBILE RESUME */}
-
-              <a
-                href="/Jaydipsinh_Padhiyar.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileOpen(false)}
-                className="
-                  flex
-                  w-full
-                  items-center
-                  justify-center
-
-                  rounded-xl
-
-                  bg-gradient-to-r
-                  from-orange-500
-                  to-amber-600
-
-                  px-4
-                  py-3
-
-                  text-sm
-                  font-semibold
-                  text-white
-
-                  shadow-sm
-
-                  transition-all
-                  duration-200
-
-                  hover:shadow-md
-                  hover:opacity-95
-                "
-              >
-                View Resume
-              </a>
-            </div>
-          </div>
         </nav>
       </header>
 
-      {/* ===================================================
-          MOBILE BACKDROP
-      =================================================== */}
+      {/* =====================================================
+          MOBILE MENU
 
-      {mobileOpen && (
-        <button
-          type="button"
-          aria-label="Close navigation menu"
-          onClick={() => setMobileOpen(false)}
+          Separate from the header so the header itself doesn't
+          grow vertically.
+      ===================================================== */}
+
+      <div
+        id="mobile-menu"
+        className={`
+          fixed
+          left-3
+          right-3
+          top-[64px]
+
+          z-50
+
+          md:hidden
+
+          origin-top
+
+          transition-all
+          duration-200
+          ease-out
+
+          ${
+            mobileOpen
+              ? `
+                visible
+                translate-y-0
+                scale-100
+                opacity-100
+              `
+              : `
+                invisible
+                -translate-y-2
+                scale-[0.98]
+                opacity-0
+                pointer-events-none
+              `
+          }
+        `}
+      >
+        <div
           className="
-            fixed
-            inset-0
-            z-40
+            overflow-hidden
 
-            bg-black/20
-            dark:bg-black/40
+            rounded-2xl
 
-            backdrop-blur-[1px]
+            border
+            border-black/10
+            dark:border-white/10
 
-            md:hidden
+            bg-white/95
+            dark:bg-slate-950/95
+
+            backdrop-blur-2xl
+
+            shadow-2xl
+            shadow-black/15
+            dark:shadow-black/50
+
+            p-2
           "
-        />
-      )}
+        >
+          {/* NAV LINKS */}
+
+          <div className="space-y-1">
+            {sections.slice(1).map((id) => {
+              const active = activeSection === id;
+
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => goTo(id)}
+                  aria-current={active ? "page" : undefined}
+                  className={`
+                    group
+
+                    flex
+                    w-full
+                    items-center
+                    justify-between
+
+                    rounded-xl
+
+                    px-4
+                    py-3
+
+                    text-left
+                    text-sm
+                    font-medium
+                    capitalize
+
+                    transition-all
+                    duration-150
+
+                    ${
+                      active
+                        ? `
+                          bg-orange-500/10
+                          dark:bg-orange-400/10
+
+                          text-orange-600
+                          dark:text-orange-400
+                        `
+                        : `
+                          text-slate-700
+                          dark:text-slate-200
+
+                          hover:bg-slate-100
+                          dark:hover:bg-white/5
+                        `
+                    }
+                  `}
+                >
+                  <span>{id}</span>
+
+                  {active && (
+                    <span
+                      className="
+                        h-1.5
+                        w-1.5
+
+                        rounded-full
+
+                        bg-orange-500
+                        dark:bg-orange-400
+                      "
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Divider */}
+
+          <div
+            className="
+              my-2
+              h-px
+              bg-black/5
+              dark:bg-white/10
+            "
+          />
+
+          {/* Resume */}
+
+          <a
+            href="/Jaydipsinh_Padhiyar.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+            className="
+              flex
+              w-full
+              items-center
+              justify-between
+
+              rounded-xl
+
+              bg-orange-500
+
+              px-4
+              py-3
+
+              text-sm
+              font-semibold
+              text-white
+
+              transition-colors
+              duration-200
+
+              hover:bg-orange-600
+            "
+          >
+            <span>View Resume</span>
+
+            <FaExternalLinkAlt className="h-3 w-3 opacity-80" />
+          </a>
+        </div>
+      </div>
+
+      {/* =====================================================
+          MOBILE BACKDROP
+      ===================================================== */}
+
+      <button
+        type="button"
+        aria-label="Close menu"
+        onClick={() => setMobileOpen(false)}
+        className={`
+          fixed
+          inset-0
+
+          z-40
+
+          md:hidden
+
+          bg-black/10
+          dark:bg-black/30
+
+          backdrop-blur-[1px]
+
+          transition-opacity
+          duration-200
+
+          ${
+            mobileOpen
+              ? "opacity-100"
+              : "pointer-events-none opacity-0"
+          }
+        `}
+      />
     </>
   );
 };
