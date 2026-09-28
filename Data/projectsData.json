@@ -1,5 +1,20 @@
 [
   {
+  "title": "Bucktuality",
+  "stack": ".NET 10, ASP.NET Core, Go, SignalR, Redis, Kafka, SQL Server, YARP, Docker, Kubernetes",
+  "details": [
+    "Building a real-time anonymous chat and video communication platform using a microservices architecture.",
+    "Developed backend services using ASP.NET Core and Go for independently managed application functionality.",
+    "Implemented real-time communication using SignalR for messaging and connection management.",
+    "Integrated Redis and Kafka for distributed data handling and asynchronous communication between services.",
+    "Configured YARP as an API gateway for routing requests across backend microservices.",
+    "Containerized application services using Docker for consistent deployment across environments.",
+    "Deployed services to a three-node Kubernetes cluster with one control-plane node and two worker nodes.",
+    "Configured SQL Server with Entity Framework Core for application data persistence and database migrations."
+  ],
+  "githubLink": "https://github.com/JAYDIPSINH27/bucktuality"
+},
+  {
     "title": "Les Chat Aws",
     "stack": "AWS, EC2, VPC, RDS, CloudWatch, SNS, Elastic Load Balancing, GraphQL",
     "details": [
