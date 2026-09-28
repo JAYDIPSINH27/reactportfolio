@@ -710,8 +710,8 @@ const Navbar = () => {
                           dark:text-orange-400
                         `
                         : `
-                          text-slate-700
-                          dark:text-slate-200
+                          text-slate-900
+                          dark:text-white
 
                           hover:bg-slate-100
                           dark:hover:bg-white/5
